@@ -19,7 +19,7 @@ restoreState();
 
 function createUI() {
   new NavigationView({left: 0, top: 0, right: 0, bottom: 0}).append(
-    new Page({title: 'Tabris for RAP Launcher'}).append(
+    new Page({title: 'Tabris for RAP'}).append(
       urlInput = new TextInput({
         message: 'Server URL',
         top: 24, left: 16, right: 16,
@@ -33,7 +33,7 @@ function createUI() {
         font: '16px'
       }),
       launchButton = new Button({
-        text: 'Start',
+        text: 'Connect',
         top: 'prev() 32', left: 16, right: 16,
       }).on({
         select: launch
