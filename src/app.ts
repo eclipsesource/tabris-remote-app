@@ -22,19 +22,19 @@ function createUI() {
     new Page({title: 'Tabris for RAP Launcher'}).append(
       urlInput = new TextInput({
         message: 'Server URL',
-        top: 32, left: 32, right: 32,
+        top: 24, left: 16, right: 16,
         font: '16px'
       }).on({
         accept: launch
       }),
       debugCheck = new CheckBox({
         text: 'Debug mode',
-        top: 'prev() 32', left: 32,
+        top: 'prev() 16', left: 16,
         font: '16px'
       }),
       launchButton = new Button({
         text: 'Start',
-        top: 'prev() 32', left: 32, right: 32,
+        top: 'prev() 32', left: 16, right: 16,
       }).on({
         select: launch
       })
