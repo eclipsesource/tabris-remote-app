@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget
     id="com.eclipsesource.tabris.remote"
-    version="0.1.0">
+    version="3.6">
 
   <name>Tabris for RAP</name>
   <description>Tabris for RAP Developer App</description>
