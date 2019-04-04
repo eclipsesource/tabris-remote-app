@@ -17,6 +17,19 @@
   <plugin name="tabris-plugin-camera" spec="https://github.com/eclipsesource/tabris-plugin-camera.git" />
   <plugin name="tabris-plugin-barcode-scanner" spec="https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git#8de9218216e67e47777da42ae3ba804a0d3c6e17" />
 
+  <edit-config file="*-Info.plist" target="NSCameraUsageDescription" mode="overwrite">
+    <string>Use camera to explore RAP examples.</string>
+  </edit-config>
+  <edit-config file="*-Info.plist" target="NSPhotoLibraryUsageDescription" mode="overwrite">
+    <string>Use photos library to explore RAP examples.</string>
+  </edit-config>
+  <edit-config file="*-Info.plist" target="NSLocationAlwaysUsageDescription" mode="overwrite">
+    <string>Use locations services to explore RAP examples.</string>
+  </edit-config>
+  <edit-config file="*-Info.plist" target="NSLocationWhenInUseUsageDescription " mode="overwrite">
+    <string>Use locations services to explore RAP examples.</string>
+  </edit-config>
+
   <platform name="ios">
     <!-- iOS 8.0+ -->
     <icon src="resources/ios/icons/Icon-60@3x.png" width="180" height="180" />
