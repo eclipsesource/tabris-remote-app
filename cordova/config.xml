@@ -7,6 +7,8 @@
   <description>Tabris for RAP Developer App</description>
   <author email="info@tabris.com">EclipseSource Inc.</author>
 
+  <access origin="*" />
+
   <preference name="EnableDeveloperConsole" value="true"/>
   <preference name="UseStrictSSL" value="false"/>
 
