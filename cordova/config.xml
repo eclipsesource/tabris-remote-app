@@ -28,7 +28,7 @@
   <edit-config file="*-Info.plist" target="NSLocationAlwaysUsageDescription" mode="overwrite">
     <string>Use locations services to explore RAP examples.</string>
   </edit-config>
-  <edit-config file="*-Info.plist" target="NSLocationWhenInUseUsageDescription " mode="overwrite">
+  <edit-config file="*-Info.plist" target="NSLocationWhenInUseUsageDescription" mode="overwrite">
     <string>Use locations services to explore RAP examples.</string>
   </edit-config>
 
