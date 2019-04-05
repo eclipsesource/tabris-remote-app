@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget
-    id="com.eclipsesource.tabris.remote"
-    version="3.6">
+  id="com.eclipsesource.tabris.remote"
+  version="3.6"
+  android-versionCode="$BUILD_NUMBER"
+  ios-CFBundleVersion="$BUILD_NUMBER">
 
   <name>Tabris for RAP</name>
   <description>Tabris for RAP Developer App</description>
