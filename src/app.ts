@@ -25,7 +25,7 @@ function createUI() {
         top: 24, left: 16, right: 16,
         font: '16px'
       }).on({
-        accept: launch
+        accept: checkAndLaunch
       }),
       debugCheck = new CheckBox({
         text: 'Debug mode',
