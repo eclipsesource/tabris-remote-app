@@ -36,7 +36,7 @@ function createUI() {
         text: 'Connect',
         top: 'prev() 32', left: 16, right: 16,
       }).on({
-        select: launch
+        select: checkAndLaunch
       })
     )
   ).appendTo(ui.contentView);
@@ -50,6 +50,17 @@ function restoreState() {
   }
 }
 
+function checkAndLaunch() {
+  let normalizedUrl = urlInput.text;
+  sendRequest(normalizedUrl, (response, status) => {
+    if (status === 200) {
+      launch();
+    } else {
+      showConnectionFailedDialog(status, normalizedUrl);
+    }
+  });
+}
+
 function launch() {
   let config = createLaunchConfig();
   localStorage.setItem(LAST_LAUNCH_CONFIG_KEY, JSON.stringify(config));
@@ -60,6 +71,34 @@ function launch() {
     new AlertDialog({title: 'Error', message: ex.message, buttons: {ok: 'OK'}})
       .open();
   }
+}
+
+function showConnectionFailedDialog(status, url) {
+  let title = 'Could not establish connection (status ' + status + ')';
+  let message = 'Could not load file: ' + url;
+  showDialog(title, message);
+}
+
+function sendRequest(url, callback) {
+  let request = new XMLHttpRequest();
+  request.timeout = 5000;
+  request.onreadystatechange = () => {
+    if (callback && request.readyState === request.DONE) {
+      callback.apply(null, [request.responseText, request.status]);
+    }
+  };
+  request.open('GET', url);
+  request.send();
+}
+
+function showDialog(title, message) {
+  new AlertDialog({
+    title: title,
+    message: message,
+    buttons: {
+      ok: 'OK'
+    }
+  }).open();
 }
 
 function createLaunchConfig(): LaunchConfig {
