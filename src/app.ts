@@ -22,6 +22,7 @@ function createUI() {
     new Page({title: 'Tabris for RAP'}).append(
       urlInput = new TextInput({
         message: 'RAP server URL',
+        text: 'http://tabris.eclipsesource.com/3.6/ui',
         top: 24, left: 16, right: 16,
         font: '16px'
       }).on({
