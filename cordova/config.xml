@@ -5,7 +5,7 @@
   android-versionCode="$BUILD_NUMBER"
   ios-CFBundleVersion="$BUILD_NUMBER">
 
-  <name>Tabris for RAP</name>
+  <name>RAP on Tabris</name>
   <description>Tabris for RAP Developer App</description>
   <author email="info@tabris.com">EclipseSource Inc.</author>
 
@@ -86,6 +86,11 @@
     <splash src="resources/android/drawable-xhdpi/splash.png" density="xhdpi" />
     <splash src="resources/android/drawable-xxhdpi/splash.png" density="xxhdpi" />
     <splash src="resources/android/drawable-xxxhdpi/splash.png" density="xxxhdpi" />
+  </platform>
+
+  <platform name="windows">
+    <preference name="WindowsStorePublisherName" value="EclipseSource"/>
+    <preference name="WindowsStoreIdentityName" value="EclipseSource.RAPonTabris"/>
   </platform>
 
 </widget>

@@ -1,0 +1,11 @@
+{
+    "windows": {
+      "release": {
+        "packageCertificateKeyFile": "WindowsKey.pfx",
+        "buildFlag": [
+          "/p:AppxPackageIsForStore=true",
+          "/p:UapAppxPackageBuildMode=StoreUpload"
+        ]
+      }
+    }
+  }
