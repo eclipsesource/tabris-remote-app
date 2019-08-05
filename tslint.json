@@ -1,17 +1,24 @@
 {
-  "extends": "tslint:recommended",
-  "rules": {
-    "ordered-imports": [false],
-    "object-literal-sort-keys": false,
-    "quotemark": [true, "single"],
-    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-    "await-promise": true,
-    "indent": [true, "spaces"],
-    "max-line-length": [true, 120],
-    "forin": false,
-    "interface-name": [false],
-    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
-    "prefer-const": false,
-    "one-variable-per-declaration": [false]
-  }
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es6", "es2015.promise" ],
+    "jsx": "react",
+    "jsxFactory": "JSX.createElement",
+    "rootDir": "./",
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "noEmitOnError": false
+  },
+  "include": [
+    "./**/*.js",
+    "./**/*.jsx",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ],
+  "exclude": [
+    "build",
+    "node_modules"
+  ]
 }

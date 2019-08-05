@@ -11,13 +11,17 @@
 
   <access origin="*" />
 
-  <preference name="EnableDeveloperConsole" value="true"/>
-  <preference name="UseStrictSSL" value="false"/>
+  <preference name="EnableDeveloperConsole" value="true" />
+  <preference name="UseStrictSSL" value="false" />
+  <preference name="cordova.plugins.diagnostic.modules" value="CAMERA" />
 
   <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
   <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
   <plugin name="tabris-plugin-camera" spec="https://github.com/eclipsesource/tabris-plugin-camera.git" />
-  <plugin name="tabris-plugin-barcode-scanner" spec="https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git#8de9218216e67e47777da42ae3ba804a0d3c6e17" />
+  <plugin name="cordova.plugins.diagnostic" spec="4.0.12" />
+  <plugin name="tabris-plugin-barcode-scanner" spec="https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git" />
+  <plugin name="cordova-plugin-ios-non-exempt-encryption" spec="~1.0.0" />
+  <plugin name="tabris-plugin-firebase" spec="https://github.com/eclipsesource/tabris-plugin-firebase.git" />
 
   <edit-config file="*-Info.plist" target="NSCameraUsageDescription" mode="overwrite">
     <string>Use camera to explore RAP examples.</string>
@@ -73,6 +77,7 @@
     <splash src="resources/ios/splash/iPad-1242×2208.png" width="1242" height="2208"/>
     <splash src="resources/ios/splash/iPhone-2208x1242.png" width="2208" height="1242"/>
 
+    <resource-file src="GoogleService-Info.plist" />
   </platform>
 
   <platform name="android">
