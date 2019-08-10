@@ -25,17 +25,6 @@
       ]
     },
     {
-      "name": "Location",
-      "image": "images/location_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
-        {
-          "title": "Creating a simple Location",
-          "url": "http://tabris.eclipsesource.com/3.6/location"
-        }
-      ]
-    },
-    {
       "name": "Draw",
       "image": "images/draw_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",

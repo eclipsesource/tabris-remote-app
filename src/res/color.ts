@@ -22,6 +22,8 @@ class Color {
   public actionIcon: string = '#757575';
   public actionIconMedium: string = '#bdbdbd';
 
+  public tabBackground: string = '#efefef';
+
 }
 
 export default new Color();

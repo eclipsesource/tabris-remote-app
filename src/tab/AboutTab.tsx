@@ -1,5 +1,7 @@
-import { app, Composite, Properties, ScrollView } from 'tabris';
-import { ComponentJSX, component, property } from 'tabris-decorators';
+import { Composite, Properties, ScrollView, app } from 'tabris';
+import { ComponentJSX, component, property, inject } from 'tabris-decorators';
+import { Images } from '../res/Images';
+import { Texts } from '../res/Texts';
 import { isIos } from '../helper';
 import CordovaPlugin from '../model/CordovaPlugin';
 import SubHeader from '../widget/SubHeader';
@@ -25,13 +27,15 @@ declare let cordova: any;
 
   public jsxProperties: ComponentJSX<this>;
   private scrollView: ScrollView;
-
   private previousScrollOffset: number = 0;
 
-  constructor(properties: Properties<AppTab>) {
+  constructor(
+    properties: Properties<AppTab>,
+    @inject protected readonly images: Images,
+    @inject protected readonly texts: Texts) {
     super({
-      title: 'About',
-      image: { src: 'images/info-black-24dp@3x.png', scale: 3 },
+      title: texts.about,
+      image: images.aboutTabImage,
       ...properties
     });
   }
@@ -46,23 +50,19 @@ declare let cordova: any;
       this.scrollView = <scrollView
         id='scrollView'
         left={0} top={0} right={0} bottom={0}
-        onScrollY={(e) => this.updateScrollReceiver(e.offset)}>
+        onScrollY={(event) => this.updateScrollReceiver(event.offset)}>
         <Header
           id='header'
           left={0} top={0} right={0}
-          title='About'
-          description='Tabris.js is brought to you by EclipseSource.' />
+          title={this.texts.about}
+          description={this.texts.aboutTabHeaderDescription} />
         {this.createFeedbackSection()}
         {this.createVersionsSection()}
         {this.createCordovaPluginsSection()}
         {this.createNpmModulesSection()}
-        <Divider
-          left={0} top={dimen.pl} right={0}
-          background={color.onBackgroundDivider} />
+        {this.createDivider()}
         {this.createSettingsSection()}
-        <Divider
-          left={0} top={dimen.pl} right={0}
-          background={color.onBackgroundDivider} />
+        {this.createDivider()}
         <textView
           left={dimen.m} top={dimen.pl} right={dimen.m}
           font={`italic ${font.body2}`}
@@ -70,8 +70,7 @@ declare let cordova: any;
           lineSpacing={1.2}
           textColor={color.onBackgroundMedium}
           alignment='center'
-          text={`© ${new Date().getFullYear()} EclipseSource. All rights reserved.<br/>
-            <a href="https://tabris.com">www.tabris.com</a>`}
+          text={this.texts.aboutTabRights}
           onTapLink={({ url }) => app.launch(url)} />
         <composite left={0} top={dimen.p} right={0} height={dimen.l} />
       </scrollView>
@@ -82,13 +81,13 @@ declare let cordova: any;
     return (
       <widgetCollection>
         <SubHeader
-          text='Feedback'
+          text={this.texts.feedback}
           left={dimen.m} top={dimen.pl} right={dimen.m} />
         <KeyValueView
           left={0} top={dimen.p} right={0}
-          key='Provide feedback'
-          value='Help us make Tabris.js better.'
-          icon='images/feedback-white-24dp@3x.png'
+          key={this.texts.aboutTabFeedbackKey}
+          value={this.texts.aboutTabFeedbackValue}
+          icon={this.images.aboutTabFeedbackIcon}
           highlightOnTouch={true}
           onTap={() => app.launch('mailto:care@tabris.com?subject=Tabris.js%20feedback')} />
       </widgetCollection>);
@@ -98,25 +97,25 @@ declare let cordova: any;
     return (
       <widgetCollection>
         <SubHeader
-          text='Versions'
+          text={this.texts.versions}
           left={dimen.m} top={dimen.pl} right={dimen.m} />
         <KeyValueView
           left={0} top={dimen.p} right={0}
-          key='Bundled tabris module'
+          key={this.texts.aboutTabTabrisVersionKey}
           value={tabrisPackageJson.version}
-          icon='images/tabris-logo-black-24dp@3x.png'
+          icon={this.images.aboutTabTabrisVersionIcon}
           highlightOnTouch={true}
           onTap={() => app.launch(`${NPM_MODULE_URL}/tabris`)} />
         <KeyValueView
           left={0} top={dimen.p} right={0}
-          key='App version'
+          key={this.texts.aboutTabAppVersionKey}
           value={app.version}
-          icon='images/device-black-24dp@3x.png' />
+          icon={this.images.aboutTabAppVersionIcon} />
         <KeyValueView
           left={0} top={dimen.p} right={0}
-          key='App version code'
+          key={this.texts.aboutTabAppVersionCodeKey}
           value={app.versionCode.toString()}
-          icon='images/device-black-24dp@3x.png' />
+          icon={this.images.aboutTabAppVersionCodeIcon} />
       </widgetCollection>);
   }
 
@@ -126,18 +125,17 @@ declare let cordova: any;
         left={0} top={dimen.p} right={0}
         key={plugin.name}
         value={plugin.version}
-        icon='images/cordova-black-24dp@3x.png'
+        icon={this.images.aboutTabPluginsIcon}
         highlightOnTouch={true}
         onTap={() => app.launch(`${NPM_MODULE_URL}/${plugin.name}`)} />);
     return (
       <widgetCollection>
         <SubHeader
           left={dimen.m} top={dimen.pxl} right={dimen.m}
-          text='Bundled cordova plugins' />
+          text={this.texts.aboutTabPluginsHeader} />
         <textView
           left={dimen.m} top={dimen.p} right={dimen.m}
-          text={'<i>To add a custom set of plugins you need to build your own app as described on ' +
-            '<a href="https://docs.tabris.com/latest/cordova.html">www.tabris.com</a>.</i>'}
+          text={this.texts.aboutTabPluginsDescription}
           font={font.body2}
           textColor={color.onBackgroundMedium}
           markupEnabled={true}
@@ -155,14 +153,14 @@ declare let cordova: any;
         left={0} top={dimen.p} right={0}
         key={moduleName}
         value={dependencies[moduleName]}
-        icon='images/npm-black-24dp@3x.png'
+        icon={this.images.aboutTabNpmModulesIcon}
         highlightOnTouch={true}
         onTap={() => app.launch(`${NPM_MODULE_URL}/${moduleName}`)} />);
     return (
       <widgetCollection>
         <SubHeader
           left={dimen.m} top={dimen.pxl} right={dimen.m}
-          text='Bundled npm modules' />
+          text={this.texts.aboutTabNpmModulesHeader} />
         {modules}
       </widgetCollection>);
   }
@@ -172,29 +170,36 @@ declare let cordova: any;
       <widgetCollection>
         <SubHeader
           left={dimen.m} top={dimen.pl} right={dimen.m}
-          text='Settings' />
+          text={this.texts.settings} />
         <composite left={0} top={dimen.pxs} right={0}>
           <textView
             left={dimen.m} top={0} right={dimen.xxxl}
             font={font.body1}
-            text='Gather usage data' />
+            text={this.texts.aboutTabSettingsSubHeader} />
           <textView
             top={dimen.pxs} left={dimen.m} right={dimen.xxxl}
             lineSpacing={1.2}
             font={font.body2}
             textColor={color.onBackgroundMedium}
-            text='Help make Tabris.js better by sending usage statistics and crash reports to EclipseSource.' />
+            text={this.texts.aboutTabSettingsDescription} />
           <switch
             top={dimen.xs} right={dimen.m}
             checked={settings.analyticsEnabled}
             trackOffColor={isIos() ? color.secondary : null}
             trackOnColor={isIos() ? color.secondary : null}
-            onSelect={e => {
-              settings.analyticsEnabled = e.checked;
-              analytics.enabled = e.checked;
+            onSelect={event => {
+              settings.analyticsEnabled = event.checked;
+              analytics.enabled = event.checked;
             }} />
         </composite>
       </widgetCollection>);
+  }
+
+  private createDivider() {
+    return (
+      <Divider
+        left={0} top={dimen.pl} right={0}
+        background={color.onBackgroundDivider} />);
   }
 
   private updateScrollReceiver(offset: number) {
@@ -234,37 +239,38 @@ declare let cordova: any;
   public jsxProperties: ComponentJSX<this>;
   @property public key: string;
   @property public value: string;
-  @property public icon: string;
+  @property public icon: Image;
 
   constructor(properties: Properties<Composite>) {
-    super();
+    super({ height: 72, ...properties });
     this.append(
       <widgetCollection>
         <imageView
           id='icon'
-          centerY={0}
-          left={dimen.m} width={32} height={32}
-          cornerRadius={16}
+          left={dimen.m} centerY={0} width={40} height={40}
+          cornerRadius={20}
           tintColor={color.onPrimary}
           background={color.primary}
-          bind-image={{ path: 'icon', converter: (src: string) => ({ src, scale: 3 }) }} />
-        <textView
-          id='key'
-          left={dimen.xxxl} top={dimen.xs} right={dimen.m}
-          font={font.body2}
-          textColor={color.onBackgroundMedium}
-          bind-text='key' />
-        <textView
-          id='value'
-          left={dimen.xxxl} right={dimen.m} top={dimen.p}
-          markupEnabled={true}
-          font={font.body1}
-          textColor={color.onBackground}
-          onTapLink={({ url }) => app.launch(url)}
-          bind-text='value' />
+          bind-image='icon' />
+        <composite
+          left={dimen.pm} right={dimen.m} centerY={0}>
+          <textView
+            id='key'
+            left={0} top={0} right={0}
+            font={font.body2}
+            textColor={color.onBackgroundMedium}
+            bind-text='key' />
+          <textView
+            id='value'
+            left={0} top={dimen.p} right={0}
+            markupEnabled={true}
+            font={font.body1}
+            textColor={color.onBackground}
+            onTapLink={({ url }) => app.launch(url)}
+            bind-text='value' />
+        </composite>
       </widgetCollection>
     );
-    this.set({ height: 56, ...properties });
   }
 
 }
