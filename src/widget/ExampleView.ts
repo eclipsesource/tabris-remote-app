@@ -1,6 +1,6 @@
-import { AlertDialog, app, Composite } from 'tabris';
-import { ExampleGalleryEntry } from '../model/ExampleGallery';
+import { AlertDialog, Composite, app } from 'tabris';
 import { resolve } from 'tabris-decorators';
+import { ExampleGalleryEntry } from '../model/ExampleGallery';
 import AppLauncher from '../AppLauncher';
 import analytics from '../analytics';
 

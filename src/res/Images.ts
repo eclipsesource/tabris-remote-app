@@ -18,5 +18,10 @@ import { isIos } from '../helper';
   public urlViewDetailsCloseIcon: Image = this.imageProvider.getImage('arrow-back-black-24dp@3x', true);
   public urlViewTabrisLogo: Image = this.imageProvider.getImage(isIos() ? 'tabris-logo-black-32dp@3x' : 'tabris-logo-black-40dp@3x');
   public urlViewLaunchIcon: Image = this.imageProvider.getImage('send-black-24dp@3x');
+  public docsLink: Image = this.imageProvider.getImage('link-external-black-24dp@3x');
+  public codeLink: Image = this.imageProvider.getImage('code-black-24dp@3x');
+  public close: Image = this.imageProvider.getImage('close-black-24dp@3x');
+  public history: Image = this.imageProvider.getImage('history-black-24dp@3x');
+  public edit: Image = this.imageProvider.getImage('edit-url-black-24dp@3x');
 
 }

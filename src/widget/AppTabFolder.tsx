@@ -8,7 +8,6 @@ import settings from '../settings';
 export default class AppTabFolder extends TabFolder {
 
   public jsxProperties: ComponentJSX<this>;
-
   private _scrollReceiver: ScrollReceiver;
   private previousTab: AppTab;
   private previouslySelectedTab: Tab;

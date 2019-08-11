@@ -1,7 +1,8 @@
 import { ActionSheet, Composite, ImageView, Properties, TextView } from 'tabris';
-import { getById, ComponentJSX, component } from 'tabris-decorators';
+import { ComponentJSX, component, getById, inject } from 'tabris-decorators';
 import { ExampleGalleryEntry } from '../model/ExampleGallery';
-import { isIos } from '../helper';
+import { Images } from '../res/Images';
+import { Texts } from '../res/Texts';
 import ExampleView, { launchUrl, showExampleDocs } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
@@ -18,16 +19,16 @@ interface ActionSheetItem {
 @component export default class ExampleViewBasic extends ExampleView {
 
   public jsxProperties: ComponentJSX<this>;
-
   @getById private name: TextView;
   @getById private image: ImageView;
   @getById private description: TextView;
-  // @getById private divider: Divider;
   private docsVersion: string;
-  // private tagVersion: string;
   private galleryEntry: ExampleGalleryEntry;
 
-  constructor(properties: Properties<Composite>) {
+  constructor(
+    properties: Properties<Composite>,
+    @inject protected readonly images: Images,
+    @inject protected readonly texts: Texts) {
     super({ background: color.surface, ...properties });
     this.on({ tap: () => showExampleDocs(this.galleryEntry.name, this.docsVersion) });
     this.createUi();
@@ -35,7 +36,6 @@ interface ActionSheetItem {
 
   public update(docsVersion: string, _tagVersion: string, galleryEntry: ExampleGalleryEntry) {
     this.docsVersion = docsVersion;
-    // this.tagVersion = tagVersion;
     this.galleryEntry = galleryEntry;
     this.name.text = galleryEntry.name;
     this.image.image = { src: 'example-gallery/' + galleryEntry.image, scale: 2 };
@@ -47,32 +47,34 @@ interface ActionSheetItem {
       <widgetCollection>
         <ActionIcon
           id='docsLink'
-          right={4} top={9}
-          image={{ src: 'images/link-external-black-24dp@3x.png', scale: 3 }}
+          right={dimen.xxs} top={dimen.xxs}
+          image={this.images.docsLink}
           highlightOnTouch={false} />
         <textView
           id='name'
-          left={dimen.m} right={dimen.p} top={dimen.m}
-          font={font.h5} maxLines={1} textColor={color.onSurface} />
+          left={dimen.m} top={dimen.m} right={dimen.pxxs}
+          font={font.h5}
+          maxLines={1}
+          textColor={color.onSurface} />
         <imageView
           id='image'
-          top={['#docsLink', dimen.xxs]} left={dimen.m} width={96} height={96}
+          left={dimen.m} top={['#name', dimen.m]} width={100} height={100}
           background={color.surface}
           elevation={2}
           cornerRadius={2} />
         <textView
           id='description'
-          left={dimen.pm} right={dimen.m} top={['#docsLink', dimen.xxs]}
+          left={dimen.pm} top={['#name', dimen.m]} right={dimen.m}
           maxLines={3}
           font={font.body1}
           textColor={color.onSurfaceMedium} />
         <textView
-          right={dimen.m} bottom={32}
-          markupEnabled
-          text='<ins>Show Snippets</ins>'
+          right={dimen.m} bottom={dimen.m}
+          markupEnabled={true}
+          text={this.texts.showSnippets}
           font={font.subtitle1}
           highlightOnTouch
-          onTap={(_e) => this.showSnippets()} />
+          onTap={() => this.showSnippets()} />
         <Divider
           id='divider'
           left={dimen.m} right={dimen.m} bottom={0}
@@ -82,19 +84,7 @@ interface ActionSheetItem {
   }
 
   private async showSnippets() {
-    const items: ActionSheetItem[] = this.galleryEntry.snippets
-      .map(link => ({
-        title: link.title,
-        image: { src: 'images/code-black-24dp@3x.png', scale: 3 },
-        style: 'default' as 'default'
-      }));
-    if (isIos()) {
-      items.push({
-        title: 'Cancel',
-        image: { src: 'images/close-black-24dp@3x.png', scale: 3 },
-        style: 'cancel' as 'cancel'
-      });
-    }
+    const items = this.getActionSheetItems();
     new ActionSheet({ actions: items }).on({
       select: ({ index }) => {
         if (items[index].style === 'default') {
@@ -102,6 +92,21 @@ interface ActionSheetItem {
         }
       }
     }).open();
+  }
+
+  private getActionSheetItems() {
+    const items: ActionSheetItem[] = this.galleryEntry.snippets
+      .map(link => ({
+        title: link.title,
+        image: this.images.codeLink,
+        style: 'default' as 'default'
+      }));
+    items.push({
+      title: this.texts.cancel,
+      image: this.images.close,
+      style: 'cancel' as 'cancel'
+    });
+    return items;
   }
 
 }

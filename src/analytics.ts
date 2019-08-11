@@ -25,7 +25,7 @@ class Analytics {
 
   public logOnboardingSkipped(screen: string) {
     if (this.analyticsActive) {
-      firebase.Analytics.logEvent('onboarding_skipped', {screen});
+      firebase.Analytics.logEvent('onboarding_skipped', { screen });
     }
   }
 
@@ -37,19 +37,19 @@ class Analytics {
 
   public logLaunchUrl(name: string) {
     if (this.analyticsActive) {
-      firebase.Analytics.logEvent('launch_url', {name});
+      firebase.Analytics.logEvent('launch_url', { name });
     }
   }
 
   public logShowDocs(widget: string) {
     if (this.analyticsActive) {
-      firebase.Analytics.logEvent('show_docs', {widget});
+      firebase.Analytics.logEvent('show_docs', { widget });
     }
   }
 
   public logShowSnippetSource(widget: string) {
     if (this.analyticsActive) {
-      firebase.Analytics.logEvent('show_snippet_source', {widget});
+      firebase.Analytics.logEvent('show_snippet_source', { widget });
     }
   }
 }

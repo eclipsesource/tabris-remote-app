@@ -229,14 +229,14 @@ declare var esbarcodescanner: any;
     }
     new AlertDialog({
       message: this.texts.urlViewCameraPermissionError,
-      buttons: { ok: this.texts.Ok }
+      buttons: { ok: this.texts.ok }
     }).open();
   }
 
   private cameraAuthorizationError(error: any) {
     new AlertDialog({
       message: this.texts.urlViewCameraAuthorizationError(error),
-      buttons: { ok: this.texts.Ok }
+      buttons: { ok: this.texts.ok }
     }).open()
   }
 
@@ -289,7 +289,7 @@ declare var esbarcodescanner: any;
     this.closeQrCodePopover();
     new AlertDialog({
       message: this.texts.urlViewQrCodeScanError(error.message),
-      buttons: { ok: this.texts.Ok }
+      buttons: { ok: this.texts.ok }
     }).open();
   }
 

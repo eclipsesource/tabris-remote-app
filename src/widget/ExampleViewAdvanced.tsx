@@ -1,6 +1,7 @@
 import { Composite, ImageView, Properties, TextView } from 'tabris';
-import { getById, ComponentJSX, property, component } from 'tabris-decorators';
+import { ComponentJSX, component, getById, property, inject } from 'tabris-decorators';
 import { Snippet, ExampleGalleryEntry } from '../model/ExampleGallery';
+import { Images } from '../res/Images';
 import ExampleView, { launchUrl, showExampleDocs } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
@@ -22,7 +23,9 @@ const MAX_LINKS = 5;
   private tagVersion: string;
   private galleryEntry: ExampleGalleryEntry;
 
-  constructor(properties: Properties<Composite>) {
+  constructor(
+    properties: Properties<Composite>,
+    @inject protected readonly images: Images) {
     super({
       background: color.surface,
       elevation: 4,
@@ -50,12 +53,12 @@ const MAX_LINKS = 5;
       <widgetCollection>
         <ActionIcon
           id='docsLink'
-          right={4} top={9}
-          image={{src: 'images/link-external-black-24dp@3x.png', scale: 3}}
+          right={dimen.xxs} top={dimen.xxs}
+          image={this.images.docsLink}
           highlightOnTouch={false} />,
         <textView
           id='name'
-          left={dimen.m} top={dimen.m} right={dimen.p}
+          left={dimen.m} top={dimen.m} right={dimen.pxxs}
           font={font.h5}
           maxLines={1}
           textColor={color.onSurface} />,
@@ -68,7 +71,7 @@ const MAX_LINKS = 5;
           font={font.body1} />,
         <imageView
           id='image'
-          top={dimen.pxs} centerX={0} />,
+          top={dimen.ps} centerX={0} />,
         <Divider
           id='divider'
           left={0} top={dimen.ps} right={0}
@@ -81,7 +84,7 @@ const MAX_LINKS = 5;
 
   private updateSnippets(galleryEntry: ExampleGalleryEntry, snippetsCount: number) {
     this.divider.visible = snippetsCount !== 0;
-    this.links.forEach((link) => link.set({visible: false, height: 0}));
+    this.links.forEach((link) => link.set({ visible: false, height: 0 }));
     if (snippetsCount > 0) {
       galleryEntry.snippets
         .slice(0, snippetsCount)
@@ -108,17 +111,19 @@ const MAX_LINKS = 5;
   @getById private title: TextView;
   private url: string;
 
-  constructor(properties: Properties<Composite>) {
+  constructor(
+    properties: Properties<Composite>,
+    @inject protected readonly images: Images) {
     super();
     this.append(
       <widgetCollection>
         <ActionIcon
-          left={dimen.m} width={40} height={40}
-          image={{src: 'images/code-black-24dp@3x.png', scale: 3}}
+          left={dimen.xxs} centerY={0}
+          image={this.images.codeLink}
           onTap={() => launchUrl(this.url)} />
         <textView
           id='title'
-          left={dimen.xxxl} right={dimen.m} centerY={0}
+          left={dimen.pxxs} right={dimen.m} centerY={0}
           markupEnabled={true}
           maxLines={2}
           font={font.subtitle2} />

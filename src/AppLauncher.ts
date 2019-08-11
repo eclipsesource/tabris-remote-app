@@ -1,6 +1,7 @@
 import { AlertDialog, ui } from 'tabris';
+import { shared, inject } from 'tabris-decorators';
 import { BasicLauncher } from 'tabris-js-remote';
-import { shared } from 'tabris-decorators';
+import { Texts } from './res/Texts';
 import settings from './settings';
 
 const MAX_RECENT_URLS = 5;
@@ -13,6 +14,8 @@ interface LaunchConfig {
 }
 
 @shared export default class AppLauncher {
+
+  constructor(@inject protected readonly texts: Texts) { }
 
   public recentUrls: string[] = settings.recentUrls;
 
@@ -36,7 +39,7 @@ interface LaunchConfig {
     if (this.isValidUrl(appUrl)) {
       this.launchApp(appUrl, url => this.addToRecentUrls(url));
     } else {
-      this.showDialog(null, `The url "${appUrl}" is not valid.`);
+      this.showDialog(null, this.texts.invalidUrlError(appUrl));
     }
   }
 
@@ -48,8 +51,7 @@ interface LaunchConfig {
         }
         this.launch(url)
       } else {
-        this.showDialog('Connection failed',
-          `Could not load file: ${url}` + (status !== 0 ? `\n\nStatus code: ${status}` : ''));
+        this.showDialog(this.texts.connectionFailed, this.texts.loadError(url, status));
       }
     });
   }
@@ -60,7 +62,7 @@ interface LaunchConfig {
       new BasicLauncher().start(config);
       ui.contentView.children().dispose();
     } catch (ex) {
-      this.showDialog('Error', ex.message);
+      this.showDialog(this.texts.error, ex.message);
     }
   }
 
@@ -84,7 +86,7 @@ interface LaunchConfig {
     new AlertDialog({
       title,
       message,
-      buttons: { ok: 'OK' }
+      buttons: { ok: this.texts.ok }
     }).open();
   }
 
