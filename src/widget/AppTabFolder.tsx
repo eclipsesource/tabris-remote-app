@@ -2,7 +2,6 @@ import { Properties, Tab, TabFolder } from 'tabris';
 import { ComponentJSX } from 'tabris-decorators';
 import ScrollReceiver from './ScrollReceiver';
 import AppTab from './AppTab';
-import analytics from '../analytics';
 import settings from '../settings';
 
 export default class AppTabFolder extends TabFolder {
@@ -23,7 +22,6 @@ export default class AppTabFolder extends TabFolder {
       },
       select: ({ selection }) => {
         const tab = selection as AppTab;
-        analytics.screenName = tab.id;
         if (this.previouslySelectedTab === tab && tab.appeared) {
           tab.onSelectWhileAppeared();
         }

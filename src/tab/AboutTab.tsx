@@ -4,19 +4,18 @@ import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
 import { Texts } from '../res/Texts';
-import { isIos } from '../helper';
 import CordovaPlugin from '../model/CordovaPlugin';
 import SubHeader from '../widget/SubHeader';
 import Divider from '../widget/Divider';
 import AppTab from '../widget/AppTab';
 import Header from '../widget/Header';
-import analytics from '../analytics';
-import settings from '../settings';
 import dimen from '../res/dimen';
 // @ts-ignore
-import * as tabrisPackageJson from '../../node_modules/tabris/package.json';
+import * as tabrisJsRemotePackageJson from '../../node_modules/tabris-js-remote/package.json';
 // @ts-ignore
 import * as packageJson from '../../package.json';
+// @ts-ignore
+import * as tabrisPackageJson from '../../node_modules/tabris/package.json';
 
 const NPM_MODULE_URL = 'https://www.npmjs.com/package';
 
@@ -63,8 +62,6 @@ declare let cordova: any;
         {this.createCordovaPluginsSection()}
         {this.createNpmModulesSection()}
         {this.createDivider()}
-        {this.createSettingsSection()}
-        {this.createDivider()}
         <textView
           left={dimen.m} top={dimen.pl} right={dimen.m}
           font={`italic ${this.fonts.body2}`}
@@ -91,7 +88,7 @@ declare let cordova: any;
           value={this.texts.aboutTabFeedbackValue}
           icon={this.images.aboutTabFeedbackIcon}
           highlightOnTouch={true}
-          onTap={() => app.launch('mailto:care@tabris.com?subject=Tabris.js%20feedback')} />
+          onTap={() => app.launch('mailto:care@tabris.com?subject=Tabris%20for%20Eclipse%20RAP%20feedback')} />
       </widgetCollection>);
   }
 
@@ -101,6 +98,13 @@ declare let cordova: any;
         <SubHeader
           text={this.texts.versions}
           left={dimen.m} top={dimen.pl} right={dimen.m} />
+        <KeyValueView
+          left={0} top={dimen.p} right={0}
+          key={this.texts.aboutTabTabrisJsRemoteVersionKey}
+          value={tabrisJsRemotePackageJson.version}
+          icon={this.images.aboutTabTabrisVersionIcon}
+          highlightOnTouch={true}
+          onTap={() => app.launch(`${NPM_MODULE_URL}/tabris-js-remote`)} />
         <KeyValueView
           left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabTabrisVersionKey}
@@ -135,65 +139,28 @@ declare let cordova: any;
         <SubHeader
           left={dimen.m} top={dimen.pxl} right={dimen.m}
           text={this.texts.aboutTabPluginsHeader} />
-        <textView
-          left={dimen.m} top={dimen.p} right={dimen.m}
-          text={this.texts.aboutTabPluginsDescription}
-          font={this.fonts.body2}
-          textColor={this.colors.onBackgroundMedium}
-          markupEnabled={true}
-          lineSpacing={1.2}
-          onTapLink={({ url }) => app.launch(url)}>
-        </textView>
         {plugins}
       </widgetCollection>);
   }
 
   private createNpmModulesSection() {
     const dependencies = packageJson.dependencies;
-    const modules = Object.keys(dependencies).map((moduleName) =>
-      <KeyValueView
-        left={0} top={dimen.p} right={0}
-        key={moduleName}
-        value={dependencies[moduleName]}
-        icon={this.images.aboutTabNpmModulesIcon}
-        highlightOnTouch={true}
-        onTap={() => app.launch(`${NPM_MODULE_URL}/${moduleName}`)} />);
+    const modules = Object.keys(dependencies)
+      .filter((moduleName) => moduleName !== 'tabris-decorators')
+      .map((moduleName) =>
+        <KeyValueView
+          left={0} top={dimen.p} right={0}
+          key={moduleName}
+          value={dependencies[moduleName]}
+          icon={this.images.aboutTabNpmModulesIcon}
+          highlightOnTouch={true}
+          onTap={() => app.launch(`${NPM_MODULE_URL}/${moduleName}`)} />);
     return (
       <widgetCollection>
         <SubHeader
           left={dimen.m} top={dimen.pxl} right={dimen.m}
           text={this.texts.aboutTabNpmModulesHeader} />
         {modules}
-      </widgetCollection>);
-  }
-
-  private createSettingsSection() {
-    return (
-      <widgetCollection>
-        <SubHeader
-          left={dimen.m} top={dimen.pl} right={dimen.m}
-          text={this.texts.settings} />
-        <composite left={0} top={dimen.pxs} right={0}>
-          <textView
-            left={dimen.m} top={0} right={dimen.xxxl}
-            font={this.fonts.body1}
-            text={this.texts.aboutTabSettingsSubHeader} />
-          <textView
-            top={dimen.pxs} left={dimen.m} right={dimen.xxxl}
-            lineSpacing={1.2}
-            font={this.fonts.body2}
-            textColor={this.colors.onBackgroundMedium}
-            text={this.texts.aboutTabSettingsDescription} />
-          <switch
-            top={dimen.xs} right={dimen.m}
-            checked={settings.analyticsEnabled}
-            trackOffColor={isIos() ? this.colors.secondary : null}
-            trackOnColor={isIos() ? this.colors.secondary : null}
-            onSelect={event => {
-              settings.analyticsEnabled = event.checked;
-              analytics.enabled = event.checked;
-            }} />
-        </composite>
       </widgetCollection>);
   }
 

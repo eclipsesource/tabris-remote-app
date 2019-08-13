@@ -6,7 +6,6 @@ import NavigationBar from './NavigationBar';
 import OnboardingTab from './OnboardingTab';
 import WelcomeTab from './WelcomeTab';
 import Divider from '../widget/Divider';
-import analytics from '../analytics';
 import dimen from '../res/dimen';
 
 @component export default class OnboardingView extends Composite {
@@ -53,7 +52,6 @@ import dimen from '../res/dimen';
   }
 
   private skipOnboarding() {
-    analytics.logOnboardingSkipped(this.tabFolder.selection.id);
     this.onComplete.trigger();
   }
 
@@ -63,12 +61,10 @@ import dimen from '../res/dimen';
       this.tabFolder.selection = this.tabs.toArray()[selectionIndex + 1];
       return;
     }
-    analytics.logOnboardingCompleted();
     this.onComplete.trigger();
   }
 
   private tabSelectionChanged(selection: OnboardingTab) {
-    analytics.screenName = selection.id;
     this.navBar.activeEntry = selection.selectionIndex;
   }
 

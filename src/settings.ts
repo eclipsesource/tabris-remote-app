@@ -4,17 +4,7 @@ class Settings {
   private KEY_ONBOARDING_COMPLETE: string = this.SCHEME + 'onboarding-complete';
   private KEY_SELECTED_TAB_ID: string = this.SCHEME + 'selected-tab-id';
   private KEY_RECENT_URLS: string = this.SCHEME + 'recent-urls';
-  private KEY_ANALYTICS_ENABLED: string = this.SCHEME + 'analytics-enabled';
   private KEY_SNIPPET_LAUNCH_TARGET: string = this.SCHEME + 'snippet-launch-target';
-
-  set analyticsEnabled(enabled: boolean) {
-    localStorage.setItem(this.KEY_ANALYTICS_ENABLED, JSON.stringify(enabled));
-  }
-
-  get analyticsEnabled(): boolean {
-    const item = localStorage.getItem(this.KEY_ANALYTICS_ENABLED);
-    return item != null ? JSON.parse(item) === true : true;
-  }
 
   set onboardingComplete(done: boolean) {
     localStorage.setItem(this.KEY_ONBOARDING_COMPLETE, JSON.stringify(done));
