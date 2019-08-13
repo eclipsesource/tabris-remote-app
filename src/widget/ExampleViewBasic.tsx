@@ -5,7 +5,7 @@ import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
 import { Texts } from '../res/Texts';
-import ExampleView, { launchUrl, showExampleDocs } from './ExampleView';
+import ExampleView, { launchExample, showDocumentation } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
 import dimen from '../res/dimen';
@@ -22,7 +22,6 @@ interface ActionSheetItem {
   @getById private name: TextView;
   @getById private image: ImageView;
   @getById private description: TextView;
-  private docsVersion: string;
   private galleryEntry: ExampleGalleryEntry;
 
   constructor(
@@ -32,12 +31,11 @@ interface ActionSheetItem {
     @inject protected readonly fonts: Fonts,
     @inject protected readonly texts: Texts) {
     super({ background: colors.surface, ...properties });
-    this.on({ tap: () => showExampleDocs(this.galleryEntry.name, this.docsVersion) });
+    this.on({ tap: () => showDocumentation() });
     this.createUi();
   }
 
-  public update(docsVersion: string, _tagVersion: string, galleryEntry: ExampleGalleryEntry) {
-    this.docsVersion = docsVersion;
+  public update(galleryEntry: ExampleGalleryEntry) {
     this.galleryEntry = galleryEntry;
     this.name.text = galleryEntry.name;
     this.image.image = { src: 'example-gallery/' + galleryEntry.image, scale: 2 };
@@ -90,14 +88,14 @@ interface ActionSheetItem {
     new ActionSheet({ actions: items }).on({
       select: ({ index }) => {
         if (items[index].style === 'default') {
-          launchUrl(this.galleryEntry.snippets[index].url);
+          launchExample(this.galleryEntry.examples[index].urlPathParameter);
         }
       }
     }).open();
   }
 
   private getActionSheetItems() {
-    const items: ActionSheetItem[] = this.galleryEntry.snippets
+    const items: ActionSheetItem[] = this.galleryEntry.examples
       .map(link => ({
         title: link.title,
         image: this.images.codeLink,

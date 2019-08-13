@@ -1,10 +1,10 @@
 import { Composite, ImageView, Properties, TextView } from 'tabris';
-import { ComponentJSX, component, getById, property, inject } from 'tabris-decorators';
-import { Snippet, ExampleGalleryEntry } from '../model/ExampleGallery';
+import { ComponentJSX, component, getById, inject } from 'tabris-decorators';
+import { ExampleGalleryEntry, Example } from '../model/ExampleGallery';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
-import ExampleView, { launchUrl, showExampleDocs } from './ExampleView';
+import ExampleView, { launchExample, showExampleSource, showDocumentation } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
 import dimen from '../res/dimen';
@@ -19,9 +19,6 @@ const MAX_LINKS = 5;
   @getById private description: TextView;
   @getById private divider: Divider;
   private links: LinkView[];
-  private docsVersion: string;
-  private tagVersion: string;
-  private galleryEntry: ExampleGalleryEntry;
 
   constructor(
     properties: Properties<Composite>,
@@ -34,20 +31,17 @@ const MAX_LINKS = 5;
       cornerRadius: dimen.isSmallDevice() ? 0 : dimen.cardCornerRadius,
       ...properties
     });
-    this.on({ tap: () => showExampleDocs(this.galleryEntry.name, this.docsVersion) });
+    this.on({ tap: () => showDocumentation() });
     this.createUi();
   }
 
-  public update(docsVersion: string, tagVersion: string, galleryEntry: ExampleGalleryEntry) {
-    this.docsVersion = docsVersion;
-    this.tagVersion = tagVersion;
-    this.galleryEntry = galleryEntry;
+  public update(galleryEntry: ExampleGalleryEntry) {
     this.name.text = galleryEntry.name;
     this.image.image = { src: 'example-gallery/' + galleryEntry.image, scale: 5 };
     this.description.text = galleryEntry.description;
-    const snippetsCount = Math.min(galleryEntry.snippets ? galleryEntry.snippets.length : 0, MAX_LINKS);
-    this.updateSnippets(galleryEntry, snippetsCount);
-    this.padding = { bottom: snippetsCount > 0 ? dimen.xs : dimen.m };
+    const examplesCount = Math.min(galleryEntry.examples ? galleryEntry.examples.length : 0, MAX_LINKS);
+    this.updateExamples(galleryEntry, examplesCount);
+    this.padding = { bottom: examplesCount > 0 ? dimen.xs : dimen.m };
   }
 
   private createUi() {
@@ -84,20 +78,19 @@ const MAX_LINKS = 5;
     this.append(this.links);
   }
 
-  private updateSnippets(galleryEntry: ExampleGalleryEntry, snippetsCount: number) {
-    this.divider.visible = snippetsCount !== 0;
+  private updateExamples(galleryEntry: ExampleGalleryEntry, examplesCount: number) {
+    this.divider.visible = examplesCount !== 0;
     this.links.forEach((link) => link.set({ visible: false, height: 0 }));
-    if (snippetsCount > 0) {
-      galleryEntry.snippets
-        .slice(0, snippetsCount)
-        .forEach((snippet, index) => {
+    if (examplesCount > 0) {
+      galleryEntry.examples
+        .slice(0, examplesCount)
+        .forEach((example, index) => {
           // Setting properties as below prevents TS error 'is not assignable...'.
           const properties = {
             visible: true,
             height: null as number,
             top: index === 0 ? dimen.pxs : dimen.p,
-            snippet,
-            version: this.tagVersion
+            example
           };
           this.links[index].set(properties);
         });
@@ -109,9 +102,8 @@ const MAX_LINKS = 5;
 @component class LinkView extends Composite {
 
   public jsxProperties: ComponentJSX<this>;
-  @property public version: string;
   @getById private title: TextView;
-  private url: string;
+  private _example: Example;
 
   constructor(
     properties: Properties<Composite>,
@@ -123,7 +115,7 @@ const MAX_LINKS = 5;
         <ActionIcon
           left={dimen.xxs} centerY={0}
           image={this.images.codeLink}
-          onTap={() => launchUrl(this.url)} />
+          onTap={() => showExampleSource(this._example.fileName)} />
         <textView
           id='title'
           left={dimen.pxxs} right={dimen.m} centerY={0}
@@ -137,12 +129,12 @@ const MAX_LINKS = 5;
       height: 40,
       ...properties
     });
-    this.on({ tap: () => launchUrl(this.url) });
+    this.on({ tap: () => launchExample(this._example.urlPathParameter) });
   }
 
-  set snippet(snippet: Snippet) {
-    this.url = snippet.url;
-    this.title.text = snippet.title ? `<ins>${snippet.title}</ins>` : `<ins>${snippet.url}</ins>`;
+  set example(example: Example) {
+    this._example = example;
+    this.title.text = `<ins>${example.title}</ins>`;
   }
 
 }

@@ -1,15 +1,14 @@
 {
-  "docsVersion": "3.1",
-  "tagVersion": "v3.1.0",
   "index": [
     {
       "name": "Buttons",
       "image": "images/buttons_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Buttons",
-          "url": "http://tabris.eclipsesource.com/3.6/buttons"
+          "fileName": "ButtonControlsDemo.java",
+          "urlPathParameter": "buttons"
         }
       ]
     },
@@ -17,10 +16,11 @@
       "name": "Simple Tree",
       "image": "images/simple_tree_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Simple Tree",
-          "url": "http://tabris.eclipsesource.com/3.6/simple-tree"
+          "fileName": "SimpleTreeDemo.java",
+          "urlPathParameter": "simple-tree"
         }
       ]
     },
@@ -28,10 +28,11 @@
       "name": "Draw",
       "image": "images/draw_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Draw",
-          "url": "http://tabris.eclipsesource.com/3.6/draw"
+          "fileName": "DrawDemo.java",
+          "urlPathParameter": "draw"
         }
       ]
     },
@@ -39,10 +40,11 @@
       "name": "Launcher",
       "image": "images/launcher_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Launcher",
-          "url": "http://tabris.eclipsesource.com/3.6/launcher"
+          "fileName": "AppLauncherDemo.java",
+          "urlPathParameter": "launcher"
         }
       ]
     },
@@ -50,10 +52,11 @@
       "name": "Camera",
       "image": "images/camera_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Camera",
-          "url": "http://tabris.eclipsesource.com/3.6/camera"
+          "fileName": "CameraDemo.java",
+          "urlPathParameter": "camera"
         }
       ]
     },
@@ -61,10 +64,11 @@
       "name": "Gallery",
       "image": "images/gallery_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Gallery",
-          "url": "http://tabris.eclipsesource.com/3.6/gallery"
+          "fileName": "GalleryDemo.java",
+          "urlPathParameter": "gallery"
         }
       ]
     },
@@ -72,10 +76,11 @@
       "name": "Video",
       "image": "images/video_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Video",
-          "url": "http://tabris.eclipsesource.com/3.6/video"
+          "fileName": "VideoDemo.java",
+          "urlPathParameter": "video"
         }
       ]
     },
@@ -83,10 +88,11 @@
       "name": "Keyboard",
       "image": "images/keyboard_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Keyboard",
-          "url": "http://tabris.eclipsesource.com/3.6/keyboard"
+          "fileName": "KeyboardDemo.java",
+          "urlPathParameter": "keyboard"
         }
       ]
     },
@@ -94,10 +100,11 @@
       "name": "Swipe",
       "image": "images/swipe_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Swipe",
-          "url": "http://tabris.eclipsesource.com/3.6/swipe"
+          "fileName": "SwipeDemo.java",
+          "urlPathParameter": "swipe"
         }
       ]
     },
@@ -105,10 +112,11 @@
       "name": "App Events",
       "image": "images/app_events_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple App Events",
-          "url": "http://tabris.eclipsesource.com/3.6/appevents"
+          "fileName": "AppEventsDemo.java",
+          "urlPathParameter": "appevents"
         }
       ]
     },
@@ -116,10 +124,11 @@
       "name": "UI",
       "image": "images/ui_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple UI",
-          "url": "http://tabris.eclipsesource.com/3.6/ui"
+          "fileName": "UiDemo.java",
+          "urlPathParameter": "ui"
         }
       ]
     },
@@ -127,10 +136,11 @@
       "name": "Dynamic UI",
       "image": "images/dynamic_ui_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Dynamic UI",
-          "url": "http://tabris.eclipsesource.com/3.6/dynamic-ui"
+          "fileName": "TODO",
+          "urlPathParameter": "dynamic-ui"
         }
       ]
     },
@@ -138,10 +148,11 @@
       "name": "Device",
       "image": "images/device_example.png",
       "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "snippets": [
+      "examples": [
         {
           "title": "Creating a simple Device",
-          "url": "http://tabris.eclipsesource.com/3.6/device"
+          "fileName": "ClientDeviceDemo.java",
+          "urlPathParameter": "device"
         }
       ]
     }

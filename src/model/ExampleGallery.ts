@@ -1,6 +1,4 @@
 export default class ExampleGallery {
-  public docsVersion: string;
-  public tagVersion: string;
   public index: ExampleGalleryEntry[];
 }
 
@@ -8,10 +6,11 @@ export class ExampleGalleryEntry {
   public name: string;
   public image: string;
   public description: string;
-  public snippets: Snippet[];
+  public examples: Example[];
 }
 
-export class Snippet {
+export class Example {
   public title: string;
-  public url: string;
+  public fileName: string;
+  public urlPathParameter: string;
 }

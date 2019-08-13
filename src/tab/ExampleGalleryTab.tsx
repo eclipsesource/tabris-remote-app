@@ -54,7 +54,7 @@ import dimen from '../res/dimen';
     if (index > 0) {
       const galleryEntry = this.exampleGallery.index[index - 1];
       const exampleView = (cell instanceof ExampleView) ? cell : cell.find(ExampleView).first();
-      exampleView.update(this.exampleGallery.docsVersion, this.exampleGallery.tagVersion, galleryEntry);
+      exampleView.update(galleryEntry);
       if (isAndroid()) {
         exampleView.top = index === 1 ? dimen.m : dimen.m - dimen.xs;
         exampleView.bottom = index === this.exampleGallery.index.length ? dimen.l : dimen.xs;

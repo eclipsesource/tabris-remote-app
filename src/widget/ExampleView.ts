@@ -1,36 +1,37 @@
 import { AlertDialog, Composite, app } from 'tabris';
 import { resolve } from 'tabris-decorators';
 import { ExampleGalleryEntry } from '../model/ExampleGallery';
+import { Texts } from '../res/Texts';
 import AppLauncher from '../AppLauncher';
-import analytics from '../analytics';
+
+const EXAMPLE_BASE_URL = 'http://tabris.eclipsesource.com/3.6/';
+const EXAMPLE_SOURCE_BASE_URL = 'https://github.com/eclipsesource/tabris-demos/tree/master/com.eclipsesource.tabris.demos/src/com/eclipsesource/tabris/demos/entrypoints';
+const DOCUMENTATION_URL = 'https://github.com/eclipsesource/tabris-demos';
 
 export default class ExampleView extends Composite {
 
-  public update(_docsVersion: string, _tagVersion: string, _galleryEntry: ExampleGalleryEntry) {
+  public update(_galleryEntry: ExampleGalleryEntry) {
     // to be implemented by subclasses
   }
 
 }
 
-export function launchUrl(url: string) {
-  resolve(AppLauncher).launchUrl(url);
-  analytics.logLaunchUrl(url);
+export function launchExample(urlPathParameter: string) {
+  resolve(AppLauncher).launchUrl(`${EXAMPLE_BASE_URL}/${urlPathParameter}`);
 }
 
-export function showSnippetSource(fileName: string, version: string) {
-  app.launch(`https://github.com/eclipsesource/tabris-js/blob/${version}/snippets/${fileName}`)
-    .then(() => analytics.logShowSnippetSource(fileName))
+export function showExampleSource(fileName: string) {
+  app.launch(`${EXAMPLE_SOURCE_BASE_URL}/${fileName}`)
     .catch(() => new AlertDialog({
-      message: `Can not open snippet ${fileName}.`,
-      buttons: { ok: 'OK' }
+      message: resolve(Texts).cannotOpenExampleSourceError(fileName),
+      buttons: { ok: resolve(Texts).ok }
     }).open());
 }
 
-export function showExampleDocs(widgetName: string, version: string) {
-  app.launch(`https://docs.tabris.com/${version}/api/${widgetName}.html`)
-    .then(() => analytics.logShowDocs(widgetName))
+export function showDocumentation() {
+  app.launch(DOCUMENTATION_URL)
     .catch(() => new AlertDialog({
-      message: `Can not open docs for ${widgetName}.`,
-      buttons: { ok: 'OK' }
+      message: resolve(Texts).cannotOpenDocumentationError,
+      buttons: { ok: resolve(Texts).ok }
     }).open());
 }
