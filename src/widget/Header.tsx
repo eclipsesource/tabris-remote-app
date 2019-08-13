@@ -1,9 +1,9 @@
 import { Composite, Properties } from 'tabris';
-import { ComponentJSX, component, property } from 'tabris-decorators';
+import { ComponentJSX, component, property, inject } from 'tabris-decorators';
 import { contentTopOffset } from '../helper';
-import color from '../res/color';
+import { Colors } from '../res/Colors';
+import { Fonts } from '../res/Fonts';
 import dimen from '../res/dimen';
-import font from '../res/font';
 
 @component export default class Header extends Composite {
 
@@ -11,11 +11,14 @@ import font from '../res/font';
   @property public title: string;
   @property public description: string;
 
-  constructor(properties: Properties<Composite>) {
+  constructor(
+    properties: Properties<Composite>,
+    @inject protected readonly colors: Colors,
+    @inject protected readonly fonts: Fonts) {
     super();
     this.createUi();
     this.set({
-      background: `linear-gradient(45deg, ${color.primaryDark} 10%, ${color.primaryLight})`,
+      background: `linear-gradient(45deg, ${colors.primaryDark} 10%, ${colors.primaryLight})`,
       padding: { bottom: dimen.m },
       ...properties
     });
@@ -27,15 +30,15 @@ import font from '../res/font';
         <textView
           id='title'
           left={dimen.m} top={contentTopOffset() + dimen.l} right={dimen.m}
-          font={font.h4}
-          textColor={color.onPrimary}
+          font={this.fonts.h4}
+          textColor={this.colors.onPrimary}
           bind-text='title' />
         <textView
           id='description'
           left={dimen.m} top={dimen.pxxxs} right={dimen.m}
-          font={font.body1}
+          font={this.fonts.body1}
           lineSpacing={1.1}
-          textColor={color.onPrimaryMedium}
+          textColor={this.colors.onPrimaryMedium}
           bind-text='description' />
       </widgetCollection>);
   }

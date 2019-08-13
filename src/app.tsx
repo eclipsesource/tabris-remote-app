@@ -1,4 +1,6 @@
 import { ui } from 'tabris';
+import { resolve } from 'tabris-decorators';
+import { Colors } from './res/Colors';
 import { isIos } from './helper';
 import ExampleGalleryTab from './tab/ExampleGalleryTab';
 import OnboardingView from './onboarding/OnboardingView';
@@ -7,13 +9,12 @@ import AboutTab from './tab/AboutTab';
 import UrlView from './widget/UrlView';
 import AppTab from './widget/AppTab';
 import settings from './settings';
-import color from './res/color';
 
 ui.navigationBar.set({
-  background: color.background,
+  background: resolve(Colors).background,
   theme: 'light'
 });
-ui.contentView.background = color.background;
+ui.contentView.background = resolve(Colors).background;
 
 
 if (settings.onboardingComplete) {
@@ -25,7 +26,7 @@ if (settings.onboardingComplete) {
 function showOnboarding() {
   ui.statusBar.set({
     theme: 'light',
-    background: color.background
+    background: resolve(Colors).background
   });
   ui.contentView.append(<OnboardingView
     left={0} top={0} right={0} bottom={0}

@@ -23,5 +23,9 @@ import { isIos } from '../helper';
   public close: Image = this.imageProvider.getImage('close-black-24dp@3x');
   public history: Image = this.imageProvider.getImage('history-black-24dp@3x');
   public edit: Image = this.imageProvider.getImage('edit-url-black-24dp@3x');
+  public devConsoleTabImage: Image = this.imageProvider.getImage('onboarding-dev-console@3x');
+  public next: Image = this.imageProvider.getImage('next-black-24dp@3x');
+  public navigationBarProgress: Image = this.imageProvider.getImage('navbar-progress-8dp@3x');
+  public onboardingTabrisLogo: Image = this.imageProvider.getImage('onboarding-tabris-logo@3x');
 
 }

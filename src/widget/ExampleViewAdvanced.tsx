@@ -1,13 +1,13 @@
 import { Composite, ImageView, Properties, TextView } from 'tabris';
 import { ComponentJSX, component, getById, property, inject } from 'tabris-decorators';
 import { Snippet, ExampleGalleryEntry } from '../model/ExampleGallery';
+import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
+import { Fonts } from '../res/Fonts';
 import ExampleView, { launchUrl, showExampleDocs } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
-import color from '../res/color';
 import dimen from '../res/dimen';
-import font from '../res/font';
 
 const MAX_LINKS = 5;
 
@@ -25,9 +25,11 @@ const MAX_LINKS = 5;
 
   constructor(
     properties: Properties<Composite>,
-    @inject protected readonly images: Images) {
+    @inject protected readonly colors: Colors,
+    @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts) {
     super({
-      background: color.surface,
+      background: colors.surface,
       elevation: 4,
       cornerRadius: dimen.isSmallDevice() ? 0 : dimen.cardCornerRadius,
       ...properties
@@ -59,23 +61,23 @@ const MAX_LINKS = 5;
         <textView
           id='name'
           left={dimen.m} top={dimen.m} right={dimen.pxxs}
-          font={font.h5}
+          font={this.fonts.h5}
           maxLines={1}
-          textColor={color.onSurface} />,
+          textColor={this.colors.onSurface} />,
         <textView
           id='description'
           left={dimen.m} top={dimen.pxxs} right={dimen.m}
           maxLines={3}
-          textColor={color.onSurfaceMedium}
+          textColor={this.colors.onSurfaceMedium}
           lineSpacing={1.1}
-          font={font.body1} />,
+          font={this.fonts.body1} />,
         <imageView
           id='image'
           top={dimen.ps} centerX={0} />,
         <Divider
           id='divider'
           left={0} top={dimen.ps} right={0}
-          background={color.onSurfaceDivider} />
+          background={this.colors.onSurfaceDivider} />
       </widgetCollection>
     );
     this.links = new Array(MAX_LINKS).fill(null).map(() => <LinkView left={0} top={dimen.p} right={0} />);
@@ -113,7 +115,8 @@ const MAX_LINKS = 5;
 
   constructor(
     properties: Properties<Composite>,
-    @inject protected readonly images: Images) {
+    @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts) {
     super();
     this.append(
       <widgetCollection>
@@ -126,7 +129,7 @@ const MAX_LINKS = 5;
           left={dimen.pxxs} right={dimen.m} centerY={0}
           markupEnabled={true}
           maxLines={2}
-          font={font.subtitle2} />
+          font={fonts.subtitle2} />
       </widgetCollection>
     );
     this.set({

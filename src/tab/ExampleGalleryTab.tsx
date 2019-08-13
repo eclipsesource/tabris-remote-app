@@ -1,5 +1,6 @@
 import { CollectionView, CollectionViewScrollEvent, Composite, Properties } from 'tabris';
 import { ComponentJSX, component, inject } from 'tabris-decorators';
+import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Texts } from '../res/Texts';
 import { isIos, isAndroid } from '../helper';
@@ -9,7 +10,6 @@ import ExampleGallery from '../model/ExampleGallery';
 import ExampleView from '../widget/ExampleView';
 import AppTab from '../widget/AppTab';
 import Header from '../widget/Header';
-import color from '../res/color';
 import dimen from '../res/dimen';
 
 @component export default class ExampleGalleryTab extends AppTab {
@@ -20,12 +20,13 @@ import dimen from '../res/dimen';
 
   constructor(
     properties: Properties<AppTab>,
+    @inject protected readonly colors: Colors,
     @inject protected readonly images: Images,
     @inject protected readonly texts: Texts) {
     super({
       title: texts.examples,
       image: images.exampleGalleryTabImage,
-      background: color.tabBackground,
+      background: colors.tabBackground,
       ...properties
     });
   }

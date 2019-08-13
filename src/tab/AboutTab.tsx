@@ -1,6 +1,8 @@
 import { Composite, Properties, ScrollView, app } from 'tabris';
 import { ComponentJSX, component, property, inject } from 'tabris-decorators';
+import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
+import { Fonts } from '../res/Fonts';
 import { Texts } from '../res/Texts';
 import { isIos } from '../helper';
 import CordovaPlugin from '../model/CordovaPlugin';
@@ -10,9 +12,7 @@ import AppTab from '../widget/AppTab';
 import Header from '../widget/Header';
 import analytics from '../analytics';
 import settings from '../settings';
-import color from '../res/color';
 import dimen from '../res/dimen';
-import font from '../res/font';
 // @ts-ignore
 import * as tabrisPackageJson from '../../node_modules/tabris/package.json';
 // @ts-ignore
@@ -31,7 +31,9 @@ declare let cordova: any;
 
   constructor(
     properties: Properties<AppTab>,
+    @inject protected readonly colors: Colors,
     @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts,
     @inject protected readonly texts: Texts) {
     super({
       title: texts.about,
@@ -65,10 +67,10 @@ declare let cordova: any;
         {this.createDivider()}
         <textView
           left={dimen.m} top={dimen.pl} right={dimen.m}
-          font={`italic ${font.body2}`}
+          font={`italic ${this.fonts.body2}`}
           markupEnabled={true}
           lineSpacing={1.2}
-          textColor={color.onBackgroundMedium}
+          textColor={this.colors.onBackgroundMedium}
           alignment='center'
           text={this.texts.aboutTabRights}
           onTapLink={({ url }) => app.launch(url)} />
@@ -136,8 +138,8 @@ declare let cordova: any;
         <textView
           left={dimen.m} top={dimen.p} right={dimen.m}
           text={this.texts.aboutTabPluginsDescription}
-          font={font.body2}
-          textColor={color.onBackgroundMedium}
+          font={this.fonts.body2}
+          textColor={this.colors.onBackgroundMedium}
           markupEnabled={true}
           lineSpacing={1.2}
           onTapLink={({ url }) => app.launch(url)}>
@@ -174,19 +176,19 @@ declare let cordova: any;
         <composite left={0} top={dimen.pxs} right={0}>
           <textView
             left={dimen.m} top={0} right={dimen.xxxl}
-            font={font.body1}
+            font={this.fonts.body1}
             text={this.texts.aboutTabSettingsSubHeader} />
           <textView
             top={dimen.pxs} left={dimen.m} right={dimen.xxxl}
             lineSpacing={1.2}
-            font={font.body2}
-            textColor={color.onBackgroundMedium}
+            font={this.fonts.body2}
+            textColor={this.colors.onBackgroundMedium}
             text={this.texts.aboutTabSettingsDescription} />
           <switch
             top={dimen.xs} right={dimen.m}
             checked={settings.analyticsEnabled}
-            trackOffColor={isIos() ? color.secondary : null}
-            trackOnColor={isIos() ? color.secondary : null}
+            trackOffColor={isIos() ? this.colors.secondary : null}
+            trackOnColor={isIos() ? this.colors.secondary : null}
             onSelect={event => {
               settings.analyticsEnabled = event.checked;
               analytics.enabled = event.checked;
@@ -199,7 +201,7 @@ declare let cordova: any;
     return (
       <Divider
         left={0} top={dimen.pl} right={0}
-        background={color.onBackgroundDivider} />);
+        background={this.colors.onBackgroundDivider} />);
   }
 
   private updateScrollReceiver(offset: number) {
@@ -241,7 +243,10 @@ declare let cordova: any;
   @property public value: string;
   @property public icon: Image;
 
-  constructor(properties: Properties<Composite>) {
+  constructor(
+    properties: Properties<Composite>,
+    @inject protected readonly colors: Colors,
+    @inject protected readonly fonts: Fonts) {
     super({ height: 72, ...properties });
     this.append(
       <widgetCollection>
@@ -249,23 +254,23 @@ declare let cordova: any;
           id='icon'
           left={dimen.m} centerY={0} width={40} height={40}
           cornerRadius={20}
-          tintColor={color.onPrimary}
-          background={color.primary}
+          tintColor={colors.onPrimary}
+          background={colors.primary}
           bind-image='icon' />
         <composite
           left={dimen.pm} right={dimen.m} centerY={0}>
           <textView
             id='key'
             left={0} top={0} right={0}
-            font={font.body2}
-            textColor={color.onBackgroundMedium}
+            font={this.fonts.body2}
+            textColor={colors.onBackgroundMedium}
             bind-text='key' />
           <textView
             id='value'
             left={0} top={dimen.p} right={0}
             markupEnabled={true}
-            font={font.body1}
-            textColor={color.onBackground}
+            font={this.fonts.body1}
+            textColor={colors.onBackground}
             onTapLink={({ url }) => app.launch(url)}
             bind-text='value' />
         </composite>

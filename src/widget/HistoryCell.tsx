@@ -1,11 +1,11 @@
 import { Composite, TextInput } from 'tabris';
 import { component, property, inject } from 'tabris-decorators';
+import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
+import { Fonts } from '../res/Fonts';
 import AppLauncher from '../AppLauncher';
 import ActionIcon from './ActionIcon';
-import color from '../res/color';
 import dimen from '../res/dimen';
-import font from '../res/font';
 
 @component export default class HistoryCell extends Composite {
 
@@ -15,7 +15,9 @@ import font from '../res/font';
   constructor(
     urlInput: TextInput,
     @inject protected appLauncher: AppLauncher,
-    @inject protected readonly images: Images) {
+    @inject protected readonly colors: Colors,
+    @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts) {
     super({ highlightOnTouch: true });
     this.urlInput = urlInput;
     this.on({ tap: () => appLauncher.launchUrl(this.url) });
@@ -24,13 +26,13 @@ import font from '../res/font';
         <imageView
           left={dimen.m} centerY={0}
           image={images.history}
-          tintColor={color.actionIcon} />
+          tintColor={colors.actionIcon} />
         <textView
           id='historyUrl'
           left={dimen.pm} right={dimen.nm} centerY={0}
-          font={font.body2}
+          font={this.fonts.body2}
           maxLines={2}
-          textColor={color.onSurfaceMedium}
+          textColor={colors.onSurfaceMedium}
           bind-text='url' />
         <ActionIcon
           right={dimen.xxs} centerY={0}

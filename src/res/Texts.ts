@@ -1,4 +1,5 @@
 import { shared } from 'tabris-decorators';
+import { isIos } from '../helper';
 
 /* tslint:disable:max-line-length */
 
@@ -33,5 +34,12 @@ import { shared } from 'tabris-decorators';
   public readonly connectionFailed: string = 'Connection failed';
   public readonly loadError = (url: string, status: number) => `Could not load file: ${url}` + (status !== 0 ? `\n\nStatus code: ${status}` : '');
   public readonly error: string = 'Error';
+  public readonly devConsoleTabMessage: string = 'Use the developer console to get insights into your app';
+  public readonly devConsoleTabSubMessage: string = `Swipe from the right edge ${isIos() ? 'of the main screen ' : '\n'}to open the developer console.`;
+  public readonly welcomeTabMessage: string = 'Welcome to Tabris.js';
+  public readonly welcomeTabSubMessage: string = 'Mobile development\nwith confidence.';
+  public readonly skip: string = 'Skip';
+  public readonly next: string = 'Next';
+  public readonly done: string = 'Done';
 
 }

@@ -3,16 +3,16 @@ import {
 } from 'tabris';
 import { ComponentJSX, component, getById, inject, create } from 'tabris-decorators';
 import { contentTopOffset, isIos } from '../helper';
+import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
+import { Fonts } from '../res/Fonts';
 import { Texts } from '../res/Texts';
 import ScrollReceiver from './ScrollReceiver';
 import AppLauncher from '../AppLauncher';
 import HistoryCell from './HistoryCell';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
-import color from '../res/color';
 import dimen from '../res/dimen';
-import font from '../res/font';
 
 // tslint:disable-next-line
 declare var esbarcodescanner: any;
@@ -35,7 +35,9 @@ declare var esbarcodescanner: any;
   constructor(
     properties: Properties<Composite>,
     @inject protected appLauncher: AppLauncher,
+    @inject protected readonly colors: Colors,
     @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts,
     @inject protected readonly texts: Texts) {
     super(properties);
     this.createUi();
@@ -74,12 +76,12 @@ declare var esbarcodescanner: any;
         <composite
           id='details'
           left={0} top={0} right={0} bottom={0}
-          background={color.surface}
+          background={this.colors.surface}
           visible={false}>
           <composite
             left={0} top={dimen.urlBarTop}
             right={0} height={dimen.urlBarHeight}
-            background={color.surface}>
+            background={this.colors.surface}>
             <ActionIcon
               id='detailsCloseIcon'
               left={dimen.xxs} centerY={0}
@@ -94,7 +96,7 @@ declare var esbarcodescanner: any;
           <Divider
             id='separator'
             left={0} top={dimen.pxs} right={0}
-            background={color.onSurfaceDivider} />
+            background={this.colors.onSurfaceDivider} />
           <collectionView
             left={0} top={dimen.pxs} right={0} bottom={0}
             cellType={index => index === 0 ? 'header' : 'widget'}
@@ -105,19 +107,19 @@ declare var esbarcodescanner: any;
         <composite
           id='urlBar'
           left={dimen.m} top={dimen.urlBarTop} right={dimen.m} height={dimen.urlBarHeight}
-          background={color.surface}
+          background={this.colors.surface}
           cornerRadius={dimen.urlBarCornerRadius}
           elevation={8}>
           <imageView
             id='tabrisLogo'
             left={dimen.xs} centerY={0}
             image={this.images.urlViewTabrisLogo}
-            tintColor={color.actionIcon} />
+            tintColor={this.colors.actionIcon} />
           <textInput
             id='urlInput'
             left={dimen.pxs} right={dimen.nxs} centerY={0}
             message={this.texts.urlViewInputMessage}
-            textColor={color.onSurface}
+            textColor={this.colors.onSurface}
             borderColor={'transparent'}
             background={'transparent'}
             keyboard='url'
@@ -128,18 +130,18 @@ declare var esbarcodescanner: any;
           <imageView
             id='scanQrCode'
             right={dimen.xs} centerY={0}
-            tintColor={color.actionIcon}
+            tintColor={this.colors.actionIcon}
             highlightOnTouch={true}
             image={this.images.urlViewScanQrCode}
             onTap={() => this.showQrCodeScanner()} />
           <composite
             id='qrCodeDivider'
             width={1} top={dimen.xs} right={dimen.ns} bottom={dimen.xs}
-            background={color.onSurfaceDivider} />
+            background={this.colors.onSurfaceDivider} />
           <imageView
             id='launchIcon'
             right={dimen.xs} centerY={0}
-            tintColor={color.actionIcon}
+            tintColor={this.colors.actionIcon}
             highlightOnTouch={true}
             image={this.images.urlViewLaunchIcon}
             onTap={() => this.appLauncher.launchUrl(this.urlInput.text)} />
@@ -163,7 +165,7 @@ declare var esbarcodescanner: any;
     this.expanded = !this.expanded;
     this.urlBar.set({
       elevation: this.expanded ? 0 : 8,
-      background: this.expanded ? 'initial' : color.surface,
+      background: this.expanded ? 'initial' : this.colors.surface,
       left: this.expanded ? dimen.xxl : dimen.m,
       right: this.expanded ? dimen.xxl : dimen.m
     });
@@ -269,7 +271,7 @@ declare var esbarcodescanner: any;
           highlightOnTouch={true}
           textColor='white'
           alignment='center'
-          font={font.h6}
+          font={this.fonts.h6}
           background='#00000070'
           onTap={() => this.closeQrCodePopover()} />
       </widgetCollection>

@@ -1,14 +1,16 @@
 import { Properties, Tab, Widget } from 'tabris';
+import { Colors } from '../res/Colors';
 import ScrollReceiver from './ScrollReceiver';
-import color from '../res/color';
+import { resolve } from 'tabris-decorators';
 
 export default class AppTab extends Tab {
 
   public scrollReceiver: ScrollReceiver;
   public appeared: boolean;
 
-  constructor(properties: Properties<Tab>) {
-    super({ background: color.background, ...properties });
+  constructor(
+    properties: Properties<Tab>) {
+    super({ background: resolve(Colors).background, ...properties });
     this.on({
       appear: () => this.createUiOnce(),
       resize: () => this.resetScrollReceiver()

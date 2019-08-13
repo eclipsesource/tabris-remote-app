@@ -1,9 +1,11 @@
 import { Composite, ImageView, Properties, TextView } from 'tabris';
-import { ComponentJSX, Listeners, getById, component } from 'tabris-decorators';
+import { ComponentJSX, Listeners, getById, component, inject } from 'tabris-decorators';
+import { Colors } from '../res/Colors';
+import { Images } from '../res/Images';
+import { Fonts } from '../res/Fonts';
+import { Texts } from '../res/Texts';
 import { isAndroid } from '../helper';
-import color from '../res/color';
 import dimen from '../res/dimen';
-import font from '../res/font';
 
 @component export default class NavigationBar extends Composite {
 
@@ -15,43 +17,49 @@ import font from '../res/font';
   @getById private nextImageView: ImageView;
   @getById private progressIndicator: Composite;
 
-  constructor(properties: Properties<Composite>) {
+  constructor(
+    properties: Properties<Composite>,
+    @inject protected readonly colors: Colors,
+    @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts,
+    @inject protected readonly texts: Texts) {
     super();
     this.createUi();
     this.set(properties);
   }
 
   private createUi() {
-    this.append(<widgetCollection>
-      <composite
-        id='skipView'
-        top={0} bottom={0}
-        highlightOnTouch={true}
-        onTap={() => this.onSkipButton.trigger()}>
-        <textView
-          left={dimen.xl} top={0} right={dimen.xl} bottom={0} centerY={0}
-          text='Skip'
-          font={font.subtitle1} />
-      </composite>
-      <composite
-        top={0} right={0} bottom={0}
-        highlightOnTouch={true}
-        onTap={() => this.onNextButton.trigger()}>
-        <textView
-          id='nextTextView'
-          left={dimen.xl} right={dimen.nxs} centerY={0}
-          text='Next'
-          font={font.subtitle1} />
-        <imageView
-          id='nextImageView'
-          right={dimen.xl} centerY={isAndroid() ? 1 : 0}
-          tintColor={color.actionIcon}
-          image={{ src: 'images/next-black-24dp@3x.png', scale: 3 }} />
-      </composite>
-      <composite
-        id='progressIndicator'
-        top='#separator' bottom={0} centerX={0} />
-    </widgetCollection>);
+    this.append(
+      <widgetCollection>
+        <composite
+          id='skipView'
+          left={0} top={0} bottom={0}
+          highlightOnTouch={true}
+          onTap={() => this.onSkipButton.trigger()}>
+          <textView
+            left={dimen.xl} right={dimen.xl} centerY={0}
+            text={this.texts.skip}
+            font={this.fonts.subtitle1} />
+        </composite>
+        <composite
+          top={0} right={0} bottom={0}
+          highlightOnTouch={true}
+          onTap={() => this.onNextButton.trigger()}>
+          <textView
+            id='nextTextView'
+            left={dimen.xl} right={dimen.nxs} centerY={0}
+            text={this.texts.next}
+            font={this.fonts.subtitle1} />
+          <imageView
+            id='nextImageView'
+            right={dimen.xl} centerY={isAndroid() ? 1 : 0}
+            tintColor={this.colors.actionIcon}
+            image={this.images.next} />
+        </composite>
+        <composite
+          id='progressIndicator'
+          centerY={0} centerX={-dimen.xxs} />
+      </widgetCollection>);
   }
 
   set entries(entries: number) {
@@ -59,7 +67,7 @@ import font from '../res/font';
     for (let i = 0; i < entries; i++) {
       new ImageView({
         left: dimen.pxs, centerY: 0,
-        image: { src: 'images/navbar-progress-8dp@3x.png', scale: 3 }
+        image: this.images.navigationBarProgress
       }).appendTo(this.progressIndicator);
     }
     this.activeEntry = 0;
@@ -68,15 +76,15 @@ import font from '../res/font';
   set activeEntry(index: number) {
     const lastPage = index === this.progressIndicator.children().length - 1;
     this.nextTextView.set({
-      text: lastPage ? 'Done' : 'Next',
-      right: lastPage ? dimen.xl : ['next()', dimen.xs]
+      text: lastPage ? this.texts.done : this.texts.next,
+      right: lastPage ? dimen.xl : dimen.nxs
     });
     this.nextImageView.visible = !lastPage;
     this.skipView.visible = !lastPage;
     this.progressIndicator
       .children(ImageView)
       .forEach((indicator: ImageView, i: number) => {
-        indicator.tintColor = i === index ? color.actionIcon : color.actionIconMedium;
+        indicator.tintColor = i === index ? this.colors.actionIcon : this.colors.actionIconMedium;
       });
   }
 

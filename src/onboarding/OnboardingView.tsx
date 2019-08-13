@@ -1,12 +1,12 @@
-import { Composite, Properties, TabFolder, WidgetCollection } from 'tabris';
-import { Listeners, getById, ComponentJSX, component } from 'tabris-decorators';
-import NavigationBar from './NavigationBar';
+import { Composite, TabFolder, WidgetCollection, CompositeProperties } from 'tabris';
+import { Listeners, ComponentJSX, component, getById, inject } from 'tabris-decorators';
+import { Colors } from '../res/Colors';
 import DevConsoleTab from './DevConsoleTab';
+import NavigationBar from './NavigationBar';
 import OnboardingTab from './OnboardingTab';
 import WelcomeTab from './WelcomeTab';
 import Divider from '../widget/Divider';
 import analytics from '../analytics';
-import color from '../res/color';
 import dimen from '../res/dimen';
 
 @component export default class OnboardingView extends Composite {
@@ -21,8 +21,10 @@ import dimen from '../res/dimen';
       <DevConsoleTab selectionIndex={1} />
     </widgetCollection>);
 
-  constructor(properties?: Properties<Composite>) {
-    super({ background: color.background, ...properties });
+  constructor(
+    properties: Partial<CompositeProperties>,
+    @inject protected readonly colors: Colors) {
+    super({ background: colors.background, ...properties });
     this.createUi();
   }
 
@@ -43,7 +45,9 @@ import dimen from '../res/dimen';
           entries={this.tabs.length}
           onSkipButton={() => this.skipOnboarding()}
           onNextButton={() => this.showNextTab()} />
-        <Divider left={0} right={0} bottom={0} background={color.onBackgroundDivider} />
+        <Divider
+          left={0} right={0} bottom={0}
+          background={this.colors.onBackgroundDivider} />
       </widgetCollection>
     );
   }
@@ -57,10 +61,10 @@ import dimen from '../res/dimen';
     const selectionIndex = (this.tabFolder.selection as OnboardingTab).selectionIndex;
     if (selectionIndex < this.tabs.length - 1) {
       this.tabFolder.selection = this.tabs.toArray()[selectionIndex + 1];
-    } else {
-      analytics.logOnboardingCompleted();
-      this.onComplete.trigger();
+      return;
     }
+    analytics.logOnboardingCompleted();
+    this.onComplete.trigger();
   }
 
   private tabSelectionChanged(selection: OnboardingTab) {

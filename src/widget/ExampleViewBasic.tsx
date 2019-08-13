@@ -1,14 +1,14 @@
 import { ActionSheet, Composite, ImageView, Properties, TextView } from 'tabris';
 import { ComponentJSX, component, getById, inject } from 'tabris-decorators';
 import { ExampleGalleryEntry } from '../model/ExampleGallery';
+import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
+import { Fonts } from '../res/Fonts';
 import { Texts } from '../res/Texts';
 import ExampleView, { launchUrl, showExampleDocs } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
-import color from '../res/color';
 import dimen from '../res/dimen';
-import font from '../res/font';
 
 interface ActionSheetItem {
   title: string;
@@ -27,9 +27,11 @@ interface ActionSheetItem {
 
   constructor(
     properties: Properties<Composite>,
+    @inject protected readonly colors: Colors,
     @inject protected readonly images: Images,
+    @inject protected readonly fonts: Fonts,
     @inject protected readonly texts: Texts) {
-    super({ background: color.surface, ...properties });
+    super({ background: colors.surface, ...properties });
     this.on({ tap: () => showExampleDocs(this.galleryEntry.name, this.docsVersion) });
     this.createUi();
   }
@@ -53,32 +55,32 @@ interface ActionSheetItem {
         <textView
           id='name'
           left={dimen.m} top={dimen.m} right={dimen.pxxs}
-          font={font.h5}
+          font={this.fonts.h5}
           maxLines={1}
-          textColor={color.onSurface} />
+          textColor={this.colors.onSurface} />
         <imageView
           id='image'
           left={dimen.m} top={['#name', dimen.m]} width={100} height={100}
-          background={color.surface}
+          background={this.colors.surface}
           elevation={2}
           cornerRadius={2} />
         <textView
           id='description'
           left={dimen.pm} top={['#name', dimen.m]} right={dimen.m}
           maxLines={3}
-          font={font.body1}
-          textColor={color.onSurfaceMedium} />
+          font={this.fonts.body1}
+          textColor={this.colors.onSurfaceMedium} />
         <textView
           right={dimen.m} bottom={dimen.m}
           markupEnabled={true}
           text={this.texts.showSnippets}
-          font={font.subtitle1}
+          font={this.fonts.subtitle1}
           highlightOnTouch
           onTap={() => this.showSnippets()} />
         <Divider
           id='divider'
           left={dimen.m} right={dimen.m} bottom={0}
-          background={color.onSurfaceDivider} />
+          background={this.colors.onSurfaceDivider} />
       </widgetCollection>
     );
   }

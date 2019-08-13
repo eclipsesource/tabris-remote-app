@@ -1,5 +1,6 @@
+import { shared } from 'tabris-decorators';
 
-class Color {
+@shared export class Colors {
 
   public primary: string = '#039be5';
   public primaryDark: string = '#0288d1';
@@ -25,5 +26,3 @@ class Color {
   public tabBackground: string = '#efefef';
 
 }
-
-export default new Color();

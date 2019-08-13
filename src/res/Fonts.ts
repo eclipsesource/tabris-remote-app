@@ -1,6 +1,7 @@
+import { shared } from 'tabris-decorators';
 import { resolve } from './resource';
 
-class Font {
+@shared export class Fonts {
 
   public h4: string = resolve({ value: '34px', ios: 'bold 34px' });
   public h5: string = resolve({ value: '24px', ios: 'bold 24px' });
@@ -11,5 +12,3 @@ class Font {
   public body2: string = '14px';
 
 }
-
-export default new Font();
