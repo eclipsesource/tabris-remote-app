@@ -79,6 +79,19 @@
   </platform>
 
   <platform name="android">
+
+    <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
+      <application android:usesCleartextTraffic="true" />
+    </edit-config>
+
+    <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.CAMERA"/>
+    </config-file>
+
+    <preference name="Theme" value="@style/Theme.Tabris.App" />
+    <resource-file src="resources/android/values/tabris_app_theme.xml"
+                   target="app/src/main/res/values/tabris_app_theme.xml" />
+
     <icon src="resources/android/drawable-mdpi/ic_launcher.png" density="mdpi" />
     <icon src="resources/android/drawable-hdpi/ic_launcher.png" density="hdpi" />
     <icon src="resources/android/drawable-xhdpi/ic_launcher.png" density="xhdpi" />
