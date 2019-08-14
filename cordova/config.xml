@@ -83,10 +83,9 @@
     <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
       <application android:usesCleartextTraffic="true" />
     </edit-config>
-
     <preference name="Theme" value="@style/Theme.Tabris.App" />
     <resource-file src="resources/android/values/tabris_app_theme.xml"
-                   target="app/src/main/res/values/tabris_app_theme.xml" />
+                   target="res/values/tabris_app_theme.xml" />
 
     <icon src="resources/android/drawable-mdpi/ic_launcher.png" density="mdpi" />
     <icon src="resources/android/drawable-hdpi/ic_launcher.png" density="hdpi" />
