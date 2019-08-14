@@ -80,7 +80,7 @@
 
   <platform name="android">
 
-    <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
+    <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
       <application android:usesCleartextTraffic="true" />
     </edit-config>
 
