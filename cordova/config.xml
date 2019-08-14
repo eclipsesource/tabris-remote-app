@@ -84,10 +84,6 @@
       <application android:usesCleartextTraffic="true" />
     </edit-config>
 
-    <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
-      <uses-permission android:name="android.permission.CAMERA"/>
-    </config-file>
-
     <preference name="Theme" value="@style/Theme.Tabris.App" />
     <resource-file src="resources/android/values/tabris_app_theme.xml"
                    target="app/src/main/res/values/tabris_app_theme.xml" />
