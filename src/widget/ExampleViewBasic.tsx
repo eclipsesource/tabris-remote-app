@@ -1,20 +1,14 @@
-import { ActionSheet, Composite, ImageView, Properties, TextView } from 'tabris';
+import { Composite, ImageView, Properties, TextView } from 'tabris';
 import { ComponentJSX, component, getById, inject } from 'tabris-decorators';
-import { ExampleGalleryEntry } from '../model/ExampleGallery';
+import { ExampleGalleryEntry, Example } from '../model/ExampleGallery';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
 import { Texts } from '../res/Texts';
-import ExampleView, { launchExample, showDocumentation } from './ExampleView';
+import ExampleView, { launchExample, showExampleSource } from './ExampleView';
 import ActionIcon from './ActionIcon';
 import Divider from './Divider';
 import dimen from '../res/dimen';
-
-interface ActionSheetItem {
-  title: string;
-  image?: Image;
-  style?: 'default' | 'cancel' | 'destructive';
-}
 
 @component export default class ExampleViewBasic extends ExampleView {
 
@@ -22,7 +16,7 @@ interface ActionSheetItem {
   @getById private name: TextView;
   @getById private image: ImageView;
   @getById private description: TextView;
-  private galleryEntry: ExampleGalleryEntry;
+  private example: Example;
 
   constructor(
     properties: Properties<Composite>,
@@ -31,12 +25,12 @@ interface ActionSheetItem {
     @inject protected readonly fonts: Fonts,
     @inject protected readonly texts: Texts) {
     super({ background: colors.surface, ...properties });
-    this.on({ tap: () => showDocumentation() });
+    this.on({ tap: () => launchExample(this.example.runPath) });
     this.createUi();
   }
 
   public update(galleryEntry: ExampleGalleryEntry) {
-    this.galleryEntry = galleryEntry;
+    this.example = galleryEntry.example;
     this.name.text = galleryEntry.name;
     this.image.image = { src: 'example-gallery/' + galleryEntry.image, scale: 2 };
     this.description.text = galleryEntry.description;
@@ -71,42 +65,16 @@ interface ActionSheetItem {
         <textView
           right={dimen.m} bottom={dimen.m}
           markupEnabled={true}
-          text={this.texts.showSnippets}
+          text={this.texts.showSourceCode}
           font={this.fonts.subtitle1}
           highlightOnTouch
-          onTap={() => this.showSnippets()} />
+          onTap={() => showExampleSource(this.example.sourcePath)} />
         <Divider
           id='divider'
           left={dimen.m} right={dimen.m} bottom={0}
           background={this.colors.onSurfaceDivider} />
       </widgetCollection>
     );
-  }
-
-  private async showSnippets() {
-    const items = this.getActionSheetItems();
-    new ActionSheet({ actions: items }).on({
-      select: ({ index }) => {
-        if (items[index].style === 'default') {
-          launchExample(this.galleryEntry.examples[index].urlPathParameter);
-        }
-      }
-    }).open();
-  }
-
-  private getActionSheetItems() {
-    const items: ActionSheetItem[] = this.galleryEntry.examples
-      .map(link => ({
-        title: link.title,
-        image: this.images.codeLink,
-        style: 'default' as 'default'
-      }));
-    items.push({
-      title: this.texts.cancel,
-      image: this.images.close,
-      style: 'cancel' as 'cancel'
-    });
-    return items;
   }
 
 }

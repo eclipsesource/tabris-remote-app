@@ -6,7 +6,6 @@ import AppLauncher from '../AppLauncher';
 
 const EXAMPLE_BASE_URL = 'http://tabris.eclipsesource.com/3.6/';
 const EXAMPLE_SOURCE_BASE_URL = 'https://github.com/eclipsesource/tabris-demos/tree/master/com.eclipsesource.tabris.demos/src/com/eclipsesource/tabris/demos/entrypoints';
-const DOCUMENTATION_URL = 'https://github.com/eclipsesource/tabris-demos';
 
 export default class ExampleView extends Composite {
 
@@ -16,22 +15,14 @@ export default class ExampleView extends Composite {
 
 }
 
-export function launchExample(urlPathParameter: string) {
-  resolve(AppLauncher).launchUrl(`${EXAMPLE_BASE_URL}/${urlPathParameter}`);
+export function launchExample(runPath: string) {
+  resolve(AppLauncher).launchUrl(`${EXAMPLE_BASE_URL}/${runPath}`);
 }
 
-export function showExampleSource(fileName: string) {
-  app.launch(`${EXAMPLE_SOURCE_BASE_URL}/${fileName}`)
+export function showExampleSource(sourcePath: string) {
+  app.launch(`${EXAMPLE_SOURCE_BASE_URL}/${sourcePath}`)
     .catch(() => new AlertDialog({
-      message: resolve(Texts).cannotOpenExampleSourceError(fileName),
-      buttons: { ok: resolve(Texts).ok }
-    }).open());
-}
-
-export function showDocumentation() {
-  app.launch(DOCUMENTATION_URL)
-    .catch(() => new AlertDialog({
-      message: resolve(Texts).cannotOpenDocumentationError,
+      message: resolve(Texts).cannotOpenExampleSourceError(sourcePath),
       buttons: { ok: resolve(Texts).ok }
     }).open());
 }

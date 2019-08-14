@@ -26,7 +26,6 @@ import { isIos } from '../helper';
   public readonly urlViewCameraAuthorizationError = (error: any) => `Could not request camera permission. ${error}`;
   public readonly cancel: string = 'Cancel';
   public readonly urlViewQrCodeScanError = (message: string) => `Scanning qr-code failed with error: ${message}`;
-  public readonly showSnippets: string = '<ins>Show Snippets</ins>';
   public readonly invalidUrlError = (appUrl: string) => `The url "${appUrl}" is not valid.`;
   public readonly connectionFailed: string = 'Connection failed';
   public readonly loadError = (url: string, status: number) => `Could not load file: ${url}` + (status !== 0 ? `\n\nStatus code: ${status}` : '');
@@ -40,5 +39,6 @@ import { isIos } from '../helper';
   public readonly done: string = 'Done';
   public readonly cannotOpenExampleSourceError = (fileName: string) => `Can not open example ${fileName}.`;
   public readonly cannotOpenDocumentationError: string = 'Can not open documentation.';
+  public readonly showSourceCode: string = '<ins>Show the source code</ins>';
 
 }

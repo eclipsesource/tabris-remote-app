@@ -3,158 +3,119 @@
     {
       "name": "Buttons",
       "image": "images/buttons_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Buttons",
-          "fileName": "ButtonControlsDemo.java",
-          "urlPathParameter": "buttons"
-        }
-      ]
+      "description": "SWT provides button controls such as push buttons, radio buttons, check buttons and several others. In this screencast we created a few miscellaneous buttons to demonstrate how to change the values of other widgets by listening to the button events. The video also shows how the UI can change on-the-fly without restarting the client.",
+      "example": {
+        "runPath": "buttons",
+        "sourcePath": "ButtonControlsDemo.java"
+      }
     },
     {
       "name": "Simple Tree",
       "image": "images/simple_tree_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Simple Tree",
-          "fileName": "SimpleTreeDemo.java",
-          "urlPathParameter": "simple-tree"
-        }
-      ]
+      "description": "The SWT API provides a Tree Control to render data in a hierarchy. This screencast shows a simple tree populated with some pseudo data. The transitions between the levels can be tracked on the server to react to UI state changes. In this demo we have implemented System.out.println().",
+      "example": {
+        "runPath": "simple-tree",
+        "sourcePath": "SimpleTreeDemo.java"
+      }
     },
     {
       "name": "Draw",
       "image": "images/draw_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Draw",
-          "fileName": "DrawDemo.java",
-          "urlPathParameter": "draw"
-        }
-      ]
+      "description": "The SWT Canvas allows you to draw on an area. Tabris enhances this feature by providing a ClientCanvas. This special kind of Canvas allows a user to draw on a defined area. On the server side you can control colors, line width and so on by using the Canvas API. You can also receive notifications about drawings that happened on a user’s device.",
+      "example": {
+        "runPath": "draw",
+        "sourcePath": "DrawDemo.java"
+      }
     },
     {
       "name": "Launcher",
       "image": "images/launcher_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Launcher",
-          "fileName": "AppLauncherDemo.java",
-          "urlPathParameter": "launcher"
-        }
-      ]
+      "description": "The AppLauncher API enables tight integration between your Tabris app and common apps on your mobile device. Possible apps to communicate with are Mail, Maps, Messaging, Browser and others. To interact with another app you create an Options object containing parameters for the target app. It’s also possible to instruct the client to open an URL and let the user decide what app to use. Thereby it is also possible to open apps in a generic way.",
+      "example": {
+        "runPath": "launcher",
+        "sourcePath": "AppLauncherDemo.java"
+      }
     },
     {
       "name": "Camera",
       "image": "images/camera_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Camera",
-          "fileName": "CameraDemo.java",
-          "urlPathParameter": "camera"
-        }
-      ]
+      "description": "",
+      "example": {
+        "runPath": "camera",
+        "sourcePath": "CameraDemo.java"
+      }
     },
     {
       "name": "Gallery",
       "image": "images/gallery_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Gallery",
-          "fileName": "GalleryDemo.java",
-          "urlPathParameter": "gallery"
-        }
-      ]
+      "description": "",
+      "example": {
+        "runPath": "gallery",
+        "sourcePath": "GalleryDemo.java"
+      }
     },
     {
       "name": "Video",
       "image": "images/video_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Video",
-          "fileName": "VideoDemo.java",
-          "urlPathParameter": "video"
-        }
-      ]
+      "description": "Video streaming is a key feature in today’s applications. Tabris enables users to play all video formats supported by their client. It’s possible to stream video directly from YouTube, Vimeo and other sources or to provide a video source of your own (e.g. using a servlet). The Video API is very compact, all you need is an URL of a video stream. The user can control playback, skipping, fullscreen etc. using the native media controls or you can create your own controls.",
+      "example": {
+        "runPath": "video",
+        "sourcePath": "VideoDemo.java"
+      }
     },
     {
       "name": "Keyboard",
       "image": "images/keyboard_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Keyboard",
-          "fileName": "KeyboardDemo.java",
-          "urlPathParameter": "keyboard"
-        }
-      ]
+      "description": "",
+      "example": {
+        "runPath": "keyboard",
+        "sourcePath": "KeyboardDemo.java"
+      }
     },
     {
       "name": "Swipe",
       "image": "images/swipe_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Swipe",
-          "fileName": "SwipeDemo.java",
-          "urlPathParameter": "swipe"
-        }
-      ]
+      "description": "One of the most commonly used gestures on mobile devices is swiping. Swiping between different screens is the default navigation on the home screens of all major mobile operating systems. Tabris provides swiping with a simple to implement page-wise navigation feature. You simply have to add Controls to an ItemProvider to enable the navigation. You can dynamically add and remove items, lock the navigation on items and cache items on the client so that no server interaction is needed.",
+      "example": {
+        "runPath": "swipe",
+        "sourcePath": "SwipeDemo.java"
+      }
     },
     {
       "name": "App Events",
       "image": "images/app_events_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple App Events",
-          "fileName": "AppEventsDemo.java",
-          "urlPathParameter": "appevents"
-        }
-      ]
+      "description": "When a Tabris application is sent to the background by the user, or activated again, an AppEvent gets raised. On the server side you can listen to those events to receive notifications. Listening to AppEvents enables a couple of use cases like locking the app or saving resources (turn off GPS).",
+      "example": {
+        "runPath": "appevents",
+        "sourcePath": "AppEventsDemo.java"
+      }
     },
     {
       "name": "UI",
       "image": "images/ui_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple UI",
-          "fileName": "UiDemo.java",
-          "urlPathParameter": "ui"
-        }
-      ]
+      "description": "With plain SWT it is not possible to create User Interfaces using native navigation concepts like the ActionBar or ViewControllers. Tabris provides a small UI framework on top of SWT that enables you to create UIs using these techniques. This framework is called “Tabris UI”. The key elements of Tabris UI are pages and actions. A user is able to navigate through your app by going back and forth between pages, while actions allow him to perform tasks on a page. Dive deeper and read the Tabris UI guide.",
+      "example": {
+        "runPath": "ui",
+        "sourcePath": "UiDemo.java"
+      }
     },
     {
       "name": "Dynamic UI",
       "image": "images/dynamic_ui_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Dynamic UI",
-          "fileName": "TODO",
-          "urlPathParameter": "dynamic-ui"
-        }
-      ]
+      "description": "",
+      "example": {
+        "runPath": "dynamic-ui",
+        "sourcePath": "../ui/dynamic"
+      }
     },
     {
       "name": "Device",
       "image": "images/device_example.png",
-      "description": "An executable item that is integrated in the application's navigation menu. Add a select listener to react to action taps.",
-      "examples": [
-        {
-          "title": "Creating a simple Device",
-          "fileName": "ClientDeviceDemo.java",
-          "urlPathParameter": "device"
-        }
-      ]
+      "description": "The ClientDevice is a server side object that can be used to gather information about a user’s device. It informs about the client platform, device capabilities, timezone offset, device orientation, connection type or the locale. To react to changes you can receive notifications about changes in orientation or connection type.",
+      "example": {
+        "runPath": "device",
+        "sourcePath": "ClientDeviceDemo.java"
+      }
     }
   ]
 }
