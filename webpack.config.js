@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./src/app.tsx",
+  entry: "./src/app.ts",
   externals: ['tabris'],
   output: {
     libraryTarget: 'commonjs2',
