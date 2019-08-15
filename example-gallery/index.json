@@ -39,7 +39,7 @@
     {
       "name": "Camera",
       "image": "images/camera_example.png",
-      "description": "",
+      "description": "This example demonstrates how to use the Camera.",
       "example": {
         "runPath": "camera",
         "sourcePath": "CameraDemo.java"
@@ -48,7 +48,7 @@
     {
       "name": "Gallery",
       "image": "images/gallery_example.png",
-      "description": "",
+      "description": "This example demonstrates how to create an image gallery.",
       "example": {
         "runPath": "gallery",
         "sourcePath": "GalleryDemo.java"
@@ -66,7 +66,7 @@
     {
       "name": "Keyboard",
       "image": "images/keyboard_example.png",
-      "description": "",
+      "description": "This example demonstrates how to create a keyboard with different types.",
       "example": {
         "runPath": "keyboard",
         "sourcePath": "KeyboardDemo.java"
@@ -102,7 +102,7 @@
     {
       "name": "Dynamic UI",
       "image": "images/dynamic_ui_example.png",
-      "description": "",
+      "description": "This example demonstrates how to create a dynamic UI.",
       "example": {
         "runPath": "dynamic-ui",
         "sourcePath": "../ui/dynamic"
