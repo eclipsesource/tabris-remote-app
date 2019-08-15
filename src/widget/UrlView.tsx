@@ -215,9 +215,6 @@ declare var esbarcodescanner: any;
   private showQrCodeScanner() {
     // @ts-ignore
     const diagnostic = cordova.plugins.diagnostic;
-    // getting the architecture from the diagnostic core module activates the core module
-    // which is required to let ios properly handle the camera permission request result.
-    diagnostic.getArchitecture();
     diagnostic.requestCameraAuthorization(
       (status: any) => this.cameraAuthorizationSuccess(diagnostic, status),
       (error: any) => this.cameraAuthorizationError(error),
@@ -250,9 +247,8 @@ declare var esbarcodescanner: any;
       .open();
     this.appendQrCodePopoverContent();
     // @ts-ignore
-    this.qrCodePopover.contentView.find('#scanner')
-      .only(esbarcodescanner.BarcodeScannerView)
-      .start(['qr']);
+    this.qrCodePopover.contentView
+      .find('#scanner').first().start(['qr']);
   }
 
   private appendQrCodePopoverContent() {
