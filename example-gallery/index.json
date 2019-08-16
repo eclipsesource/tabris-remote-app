@@ -1,6 +1,15 @@
 {
   "index": [
     {
+      "name": "Input Controls",
+      "image": "images/input_example.png",
+      "description": "The SWT API provides several input controls like text fields, combo boxes, date picker and many more. In this screencast we use a form to sign up for an imaginary flight using some input controls. By clicking the red button we execute an action on the server. The values entered are immediately accessible on the server.",
+      "example": {
+        "runPath": "input",
+        "sourcePath": "InputControlsDemo.java"
+      }
+    },
+    {
       "name": "Buttons",
       "image": "images/buttons_example.png",
       "description": "SWT provides button controls such as push buttons, radio buttons, check buttons and several others. In this screencast we created a few miscellaneous buttons to demonstrate how to change the values of other widgets by listening to the button events. The video also shows how the UI can change on-the-fly without restarting the client.",
@@ -19,7 +28,7 @@
       }
     },
     {
-      "name": "Draw",
+      "name": "Client Canvas",
       "image": "images/draw_example.png",
       "description": "The SWT Canvas allows you to draw on an area. Tabris enhances this feature by providing a ClientCanvas. This special kind of Canvas allows a user to draw on a defined area. On the server side you can control colors, line width and so on by using the Canvas API. You can also receive notifications about drawings that happened on a user’s device.",
       "example": {
@@ -28,7 +37,7 @@
       }
     },
     {
-      "name": "Launcher",
+      "name": "App Launcher",
       "image": "images/launcher_example.png",
       "description": "The AppLauncher API enables tight integration between your Tabris app and common apps on your mobile device. Possible apps to communicate with are Mail, Maps, Messaging, Browser and others. To interact with another app you create an Options object containing parameters for the target app. It’s also possible to instruct the client to open an URL and let the user decide what app to use. Thereby it is also possible to open apps in a generic way.",
       "example": {
@@ -55,7 +64,7 @@
       }
     },
     {
-      "name": "Video",
+      "name": "Streaming Videos",
       "image": "images/video_example.png",
       "description": "Video streaming is a key feature in today’s applications. Tabris enables users to play all video formats supported by their client. It’s possible to stream video directly from YouTube, Vimeo and other sources or to provide a video source of your own (e.g. using a servlet). The Video API is very compact, all you need is an URL of a video stream. The user can control playback, skipping, fullscreen etc. using the native media controls or you can create your own controls.",
       "example": {
@@ -91,7 +100,7 @@
       }
     },
     {
-      "name": "UI",
+      "name": "Native Navigation",
       "image": "images/ui_example.png",
       "description": "With plain SWT it is not possible to create User Interfaces using native navigation concepts like the ActionBar or ViewControllers. Tabris provides a small UI framework on top of SWT that enables you to create UIs using these techniques. This framework is called “Tabris UI”. The key elements of Tabris UI are pages and actions. A user is able to navigate through your app by going back and forth between pages, while actions allow him to perform tasks on a page. Dive deeper and read the Tabris UI guide.",
       "example": {

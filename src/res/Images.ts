@@ -13,7 +13,6 @@ import { isIos } from '../helper';
   public aboutTabAppVersionIcon: Image = this.imageProvider.getImage('device-black-24dp@3x');
   public aboutTabAppVersionCodeIcon: Image = this.imageProvider.getImage('device-black-24dp@3x');
   public aboutTabPluginsIcon: Image = this.imageProvider.getImage('cordova-black-24dp@3x');
-  public aboutTabNpmModulesIcon: Image = this.imageProvider.getImage('npm-black-24dp@3x');
   public urlViewScanQrCode: Image = this.imageProvider.getImage('qrcode-scan-black-24dp@3x');
   public urlViewDetailsCloseIcon: Image = this.imageProvider.getImage('arrow-back-black-24dp@3x', true);
   public urlViewTabrisLogo: Image = this.imageProvider.getImage(isIos() ? 'tabris-logo-black-32dp@3x' : 'tabris-logo-black-40dp@3x');

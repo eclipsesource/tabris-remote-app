@@ -13,8 +13,6 @@ import dimen from '../res/dimen';
 // @ts-ignore
 import * as tabrisJsRemotePackageJson from '../../node_modules/tabris-js-remote/package.json';
 // @ts-ignore
-import * as packageJson from '../../package.json';
-// @ts-ignore
 import * as tabrisPackageJson from '../../node_modules/tabris/package.json';
 
 const NPM_MODULE_URL = 'https://www.npmjs.com/package';
@@ -60,7 +58,6 @@ declare let cordova: any;
         {this.createFeedbackSection()}
         {this.createVersionsSection()}
         {this.createCordovaPluginsSection()}
-        {this.createNpmModulesSection()}
         {this.createDivider()}
         <textView
           left={dimen.m} top={dimen.pl} right={dimen.m}
@@ -102,9 +99,7 @@ declare let cordova: any;
           left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabTabrisJsRemoteVersionKey}
           value={tabrisJsRemotePackageJson.version}
-          icon={this.images.aboutTabTabrisVersionIcon}
-          highlightOnTouch={true}
-          onTap={() => app.launch(`${NPM_MODULE_URL}/tabris-js-remote`)} />
+          icon={this.images.aboutTabTabrisVersionIcon} />
         <KeyValueView
           left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabTabrisVersionKey}
@@ -140,27 +135,6 @@ declare let cordova: any;
           left={dimen.m} top={dimen.pxl} right={dimen.m}
           text={this.texts.aboutTabPluginsHeader} />
         {plugins}
-      </widgetCollection>);
-  }
-
-  private createNpmModulesSection() {
-    const dependencies = packageJson.dependencies;
-    const modules = Object.keys(dependencies)
-      .filter((moduleName) => moduleName !== 'tabris-decorators')
-      .map((moduleName) =>
-        <KeyValueView
-          left={0} top={dimen.p} right={0}
-          key={moduleName}
-          value={dependencies[moduleName]}
-          icon={this.images.aboutTabNpmModulesIcon}
-          highlightOnTouch={true}
-          onTap={() => app.launch(`${NPM_MODULE_URL}/${moduleName}`)} />);
-    return (
-      <widgetCollection>
-        <SubHeader
-          left={dimen.m} top={dimen.pxl} right={dimen.m}
-          text={this.texts.aboutTabNpmModulesHeader} />
-        {modules}
       </widgetCollection>);
   }
 
