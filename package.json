@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "tabris-js-remote": "^3.6.0",
-    "tabris": "2.8.0",
-    "tabris-decorators": "2.8.0"
+    "tabris": "^2.8.0",
+    "tabris-decorators": "^2.8.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.44",
