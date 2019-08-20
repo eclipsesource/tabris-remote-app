@@ -35,6 +35,7 @@ registry=https://npm.tabrisjs.com/
 | 3.5.0                   | 3.5.0 nightly | 3.5.0   | 2.6.2                  |
 | 3.6.0-beta1             | 3.6.0 nightly | 3.6.0   | 2.6.2                  |
 | 3.6.0                   | 3.6.0         | 3.6.0   | 2.7.0                  |
+| 3.6.19                  | 3.6.0         | 3.6.0   | 2.8.1                  |
 
 7. Build the app for the platform of your choice.
 8. Download and install the app and connect to your Tabris/RAP server.
