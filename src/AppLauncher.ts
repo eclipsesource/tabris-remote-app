@@ -78,7 +78,7 @@ interface LaunchConfig {
     request.send();
   }
 
-  private createLaunchConfig(url: string, debug: boolean = true): LaunchConfig {
+  private createLaunchConfig(url: string, debug: boolean = false): LaunchConfig {
     return { url, debug, version: 3, id: '' };
   }
 
