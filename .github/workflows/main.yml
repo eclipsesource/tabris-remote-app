@@ -24,3 +24,5 @@ jobs:
           echo -e "${{ secrets.ECLIPSESOURCE_NPM_REGISTRY_TOKEN }}" >> ~/.npmrc
           npm i
           sudo -E tabris build ios
+      - name: Check for fastlane
+        run: fastlane --version
