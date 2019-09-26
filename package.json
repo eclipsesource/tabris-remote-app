@@ -1,6 +1,6 @@
 {
   "name": "tabris-remote-app",
-  "version": "3.6.2",
+  "version": "3.6.3",
   "main": "dist/index.js",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "tabris-js-remote": "^3.6.0",
-    "tabris": "^2.8.0",
+    "tabris": "nightly-2.x",
     "tabris-decorators": "^2.8.0"
   },
   "devDependencies": {
