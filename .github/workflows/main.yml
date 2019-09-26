@@ -1,0 +1,24 @@
+name: Build "RAP for Tabris" app
+
+on:
+  push:
+    branches:
+      - github-action
+
+jobs:
+
+  build_ios:
+    name: Build iOS app
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 'x'
+      - name: Install tabris-cli
+        run: sudo npm install -g tabris-cli
+      - name: Build iOS app using tabris-cli
+        env:
+          TABRIS_BUILD_KEY: ${{ secrets.TABRIS_BUILD_KEY }}
+        run: |
+          sudo -E tabris build ios
