@@ -23,8 +23,4 @@ jobs:
         run: |
           echo -e "${{ secrets.ECLIPSESOURCE_NPM_REGISTRY_TOKEN }}" >> ~/.npmrc
           npm i
-          sudo -E tabris build ios
-      - name: Check for tools
-        run: |
-          fastlane --version
-          xcrun altool --version
+          sudo -E tabris build ios --device --release
