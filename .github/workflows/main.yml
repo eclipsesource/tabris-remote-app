@@ -20,8 +20,7 @@ jobs:
       - name: Build iOS app using tabris-cli
         env:
           TABRIS_BUILD_KEY: ${{ secrets.TABRIS_BUILD_KEY }}
-          ECLIPSESOURCE_NPM_REGISTRY_TOKEN: ${{ secrets.ECLIPSESOURCE_NPM_REGISTRY_TOKEN }}
         run: |
-          echo -e "${ECLIPSESOURCE_NPM_REGISTRY_TOKEN}" >> ~/.npmrc
+          echo -e "${{ secrets.ECLIPSESOURCE_NPM_REGISTRY_TOKEN }}" >> ~/.npmrc
           npm i
           sudo -E tabris build ios
