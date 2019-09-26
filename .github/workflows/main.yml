@@ -21,4 +21,5 @@ jobs:
         env:
           TABRIS_BUILD_KEY: ${{ secrets.TABRIS_BUILD_KEY }}
         run: |
+          npm i
           sudo -E tabris build ios
