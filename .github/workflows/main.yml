@@ -15,6 +15,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 'x'
+      - name: Setup keychain
+        env:
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_GIT_BRANCH: ${{ secrets.MATCH_GIT_BRANCH }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: fastlane match appstore --readonly --app_identifier com.eclipsesource.tabris.remote
       - name: Install tabris-cli
         run: sudo npm install -g tabris-cli
       - name: Build iOS app using tabris-cli
