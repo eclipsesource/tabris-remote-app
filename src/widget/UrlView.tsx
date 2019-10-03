@@ -1,6 +1,6 @@
 import {
   AlertDialog, Composite, ImageView, Popover, Properties,
-  TextInput, Widget, app, CollectionView, TextView, Bounds
+  TextInput, Widget, app, CollectionView, TextView, Bounds, permission
 } from 'tabris';
 import { component, getById, inject, create } from 'tabris-decorators';
 import { contentTopOffset, isIos } from '../helper';
@@ -214,30 +214,10 @@ declare var esbarcodescanner: any;
   }
 
   private showQrCodeScanner() {
-    // @ts-ignore
-    const diagnostic = cordova.plugins.diagnostic;
-    diagnostic.requestCameraAuthorization(
-      (status: any) => this.cameraAuthorizationSuccess(diagnostic, status),
-      (error: any) => this.cameraAuthorizationError(error),
-      false);
-  }
-
-  private cameraAuthorizationSuccess(diagnostic: any, status: any) {
-    if (status === diagnostic.permissionStatus.GRANTED) {
-      this.showQrCodeScannerPopover();
-      return;
-    }
-    new AlertDialog({
-      message: this.texts.urlViewCameraPermissionError,
-      buttons: { ok: this.texts.ok }
-    }).open();
-  }
-
-  private cameraAuthorizationError(error: any) {
-    new AlertDialog({
-      message: this.texts.urlViewCameraAuthorizationError(error),
-      buttons: { ok: this.texts.ok }
-    }).open()
+    permission.withAuthorization('camera',
+      () => this.showQrCodeScannerPopover(),
+      () => AlertDialog.open(this.texts.urlViewCameraPermissionError),
+      (error: any) => AlertDialog.open(this.texts.urlViewCameraAuthorizationError(error)));
   }
 
   private showQrCodeScannerPopover() {

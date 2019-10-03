@@ -1,28 +1,29 @@
 import { shared } from 'tabris-decorators';
+import { ColorValue } from 'tabris';
 
 @shared export class Colors {
 
-  public primary: string = '#039be5';
-  public primaryDark: string = '#0288d1';
-  public primaryLight: string = '#00dfff';
-  public secondary: string = '#ffab00';
-  public secondaryVariant: string = '#ffd740';
-  public background: string = '#ffffff';
-  public surface: string = '#ffffff';
+  public primary: ColorValue = '#039be5';
+  public primaryDark: ColorValue = '#0288d1';
+  public primaryLight: ColorValue = '#00dfff';
+  public secondary: ColorValue = '#ffab00';
+  public secondaryVariant: ColorValue = '#ffd740';
+  public background: ColorValue = '#ffffff';
+  public surface: ColorValue = '#ffffff';
 
-  public onPrimary: string = '#ffffff';
-  public onPrimaryMedium: string = '#ffffffdc';
-  public onSecondary: string = '#ffffffff';
-  public onBackground: string = '#000000de';
-  public onBackgroundMedium: string = '#00000099';
-  public onBackgroundDivider: string = '#0000001e';
-  public onSurface: string = this.onBackground;
-  public onSurfaceMedium: string = this.onBackgroundMedium;
-  public onSurfaceDivider: string = this.onBackgroundDivider;
+  public onPrimary: ColorValue = '#ffffff';
+  public onPrimaryMedium: ColorValue = '#ffffffdc';
+  public onSecondary: ColorValue = '#ffffffff';
+  public onBackground: ColorValue = '#000000de';
+  public onBackgroundMedium: ColorValue = '#00000099';
+  public onBackgroundDivider: ColorValue = '#0000001e';
+  public onSurface: ColorValue = this.onBackground;
+  public onSurfaceMedium: ColorValue = this.onBackgroundMedium;
+  public onSurfaceDivider: ColorValue = this.onBackgroundDivider;
 
-  public actionIcon: string = '#757575';
-  public actionIconMedium: string = '#bdbdbd';
+  public actionIcon: ColorValue = '#757575';
+  public actionIconMedium: ColorValue = '#bdbdbd';
 
-  public tabBackground: string = '#efefef';
+  public tabBackground: ColorValue = '#efefef';
 
 }

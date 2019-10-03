@@ -47,8 +47,8 @@ export default class UILauncher {
       theme: 'dark'
     });
     this.createAppUi();
-    const tabFolder = contentView.find(AppTabFolder).first();
-    tabFolder.scrollReceiver = contentView.find(UrlView).first();
+    const tabFolder = $(AppTabFolder).only();
+    tabFolder.scrollReceiver = $(UrlView).only();
     const selection = tabFolder.find('#' + settings.selectedTabId).first(AppTab);
     if (selection) {
       tabFolder.selection = selection;
