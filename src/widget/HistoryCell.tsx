@@ -1,4 +1,4 @@
-import { Composite, TextInput } from 'tabris';
+import { Composite, TextInput, ImageView, TextView } from 'tabris';
 import { component, property, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
@@ -22,12 +22,12 @@ import dimen from '../res/dimen';
     this.urlInput = urlInput;
     this.on({ tap: () => appLauncher.launchUrl(this.url) });
     this.append(
-      <widgetCollection>
-        <imageView
+      <$>
+        <ImageView
           left={dimen.m} centerY={0}
           image={images.history}
           tintColor={colors.actionIcon} />
-        <textView
+        <TextView
           id='historyUrl'
           left={dimen.pm} right={dimen.nm} centerY={0}
           font={this.fonts.body2}
@@ -38,7 +38,7 @@ import dimen from '../res/dimen';
           right={dimen.xxs} centerY={0}
           image={this.images.edit}
           onTap={() => this.updateUrlInput(this.url)} />
-      </widgetCollection>
+      </$>
     );
   }
 

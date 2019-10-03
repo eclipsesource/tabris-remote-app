@@ -1,9 +1,9 @@
 import { CollectionView, CollectionViewScrollEvent, Composite, Properties } from 'tabris';
-import { ComponentJSX, component, inject } from 'tabris-decorators';
+import { component, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Texts } from '../res/Texts';
-import { isIos, isAndroid } from '../helper';
+import { isIos } from '../helper';
 import ExampleViewAdvanced from '../widget/ExampleViewAdvanced';
 import ExampleViewBasic from '../widget/ExampleViewBasic';
 import ExampleGallery from '../model/ExampleGallery';
@@ -14,8 +14,7 @@ import dimen from '../res/dimen';
 
 @component export default class ExampleGalleryTab extends AppTab {
 
-  public jsxProperties: ComponentJSX<this>;
-  private exampleList: CollectionView;
+  private exampleList: CollectionView<Composite>;
   private exampleGallery: ExampleGallery;
 
   constructor(
@@ -38,7 +37,7 @@ import dimen from '../res/dimen';
 
   protected createUi() {
     this.append(
-      this.exampleList = <collectionView
+      this.exampleList = <CollectionView
         id='exampleList'
         left={0} top={0} right={0} bottom={0}
         cellHeight={isIos() ? 192 : 'auto'}
@@ -55,10 +54,8 @@ import dimen from '../res/dimen';
       const galleryEntry = this.exampleGallery.index[index - 1];
       const exampleView = (cell instanceof ExampleView) ? cell : cell.find(ExampleView).first();
       exampleView.update(galleryEntry);
-      if (isAndroid()) {
-        exampleView.top = index === 1 ? dimen.m : dimen.m - dimen.xs;
-        exampleView.bottom = index === this.exampleGallery.index.length ? dimen.l : dimen.xs;
-      }
+      exampleView.top = index === 1 ? dimen.m : dimen.m - dimen.xs;
+      exampleView.bottom = index === this.exampleGallery.index.length ? dimen.l : dimen.xs;
     }
   }
 
@@ -98,13 +95,13 @@ import dimen from '../res/dimen';
         highlightOnTouch={true} />;
     }
     return (
-      <composite>
+      <Composite>
         <ExampleViewAdvanced
           left={dimen.isSmallDevice() ? 0 : dimen.m}
           top={dimen.xs}
           right={dimen.isSmallDevice() ? 0 : dimen.m}
-          highlightOnTouch={true} />
-      </composite>
+          highlightOnTouch />
+      </Composite>
     );
   }
 

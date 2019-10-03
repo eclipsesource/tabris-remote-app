@@ -1,37 +1,32 @@
-import { Properties, Tab, TabFolder } from 'tabris';
-import { ComponentJSX } from 'tabris-decorators';
+import { Properties, TabFolder } from 'tabris';
+import {inject} from 'tabris-decorators';
+import {Colors} from '../res/Colors';
 import ScrollReceiver from './ScrollReceiver';
 import AppTab from './AppTab';
 import settings from '../settings';
 
-export default class AppTabFolder extends TabFolder {
+export default class AppTabFolder extends TabFolder<AppTab> {
 
-  public jsxProperties: ComponentJSX<this>;
   private _scrollReceiver: ScrollReceiver;
   private previousTab: AppTab;
-  private previouslySelectedTab: Tab;
 
-  constructor(properties: Properties<TabFolder>) {
-    super({ tabBarLocation: 'bottom', ...properties });
-    this.on({
-      selectionChanged: ({ value }) => {
-        const tab = value as AppTab;
-        settings.selectedTabId = tab.id;
-        this.previouslySelectedTab = tab;
-        this.updateScrollReceiver(tab);
-      },
-      select: ({ selection }) => {
-        const tab = selection as AppTab;
-        if (this.previouslySelectedTab === tab && tab.appeared) {
-          tab.onSelectWhileAppeared();
-        }
-      }
+  constructor(
+    properties: Properties<TabFolder>,
+    @inject protected readonly colors: Colors) {
+    super({
+      tabBarLocation: 'bottom',
+      selectedTabTintColor: colors.primary,
+      ...properties
+    });
+    this.onSelectionChanged(({value: tab}) => {
+      settings.selectedTabId = tab.id;
+      this.updateScrollReceiver(tab);
     });
   }
 
   set scrollReceiver(scrollReceiver: ScrollReceiver) {
     this._scrollReceiver = scrollReceiver;
-    this.previousTab = this.selection as AppTab;
+    this.previousTab = this.selection;
     this.previousTab.scrollReceiver = scrollReceiver;
   }
 

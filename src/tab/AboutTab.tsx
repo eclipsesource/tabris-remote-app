@@ -1,5 +1,5 @@
-import { Composite, Properties, ScrollView, app } from 'tabris';
-import { ComponentJSX, component, property, inject } from 'tabris-decorators';
+import { Composite, Properties, ScrollView, app, TextView, ImageValue, ImageView } from 'tabris';
+import { component, property, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
@@ -22,7 +22,6 @@ declare let cordova: any;
 
 @component export default class AboutTab extends AppTab {
 
-  public jsxProperties: ComponentJSX<this>;
   private scrollView: ScrollView;
   private previousScrollOffset: number = 0;
 
@@ -46,7 +45,7 @@ declare let cordova: any;
 
   protected createUi() {
     this.append(
-      this.scrollView = <scrollView
+      this.scrollView = <ScrollView
         id='scrollView'
         left={0} top={0} right={0} bottom={0}
         onScrollY={(event) => this.updateScrollReceiver(event.offset)}>
@@ -59,23 +58,23 @@ declare let cordova: any;
         {this.createVersionsSection()}
         {this.createCordovaPluginsSection()}
         {this.createDivider()}
-        <textView
+        <TextView
           left={dimen.m} top={dimen.pl} right={dimen.m}
           font={`italic ${this.fonts.body2}`}
           markupEnabled={true}
           lineSpacing={1.2}
           textColor={this.colors.onBackgroundMedium}
-          alignment='center'
+          alignment='centerX'
           text={this.texts.aboutTabRights}
           onTapLink={({ url }) => app.launch(url)} />
-        <composite left={0} top={dimen.p} right={0} height={dimen.l} />
-      </scrollView>
+        <Composite left={0} top={dimen.p} right={0} height={dimen.l} />
+      </ScrollView>
     );
   }
 
   private createFeedbackSection() {
     return (
-      <widgetCollection>
+      <$>
         <SubHeader
           text={this.texts.feedback}
           left={dimen.m} top={dimen.pl} right={dimen.m} />
@@ -86,12 +85,12 @@ declare let cordova: any;
           icon={this.images.aboutTabFeedbackIcon}
           highlightOnTouch={true}
           onTap={() => app.launch('mailto:care@tabris.com?subject=Tabris%20for%20Eclipse%20RAP%20feedback')} />
-      </widgetCollection>);
+      </$>);
   }
 
   private createVersionsSection() {
     return (
-      <widgetCollection>
+      <$>
         <SubHeader
           text={this.texts.versions}
           left={dimen.m} top={dimen.pl} right={dimen.m} />
@@ -117,7 +116,7 @@ declare let cordova: any;
           key={this.texts.aboutTabAppVersionCodeKey}
           value={app.versionCode.toString()}
           icon={this.images.aboutTabAppVersionCodeIcon} />
-      </widgetCollection>);
+      </$>);
   }
 
   private createCordovaPluginsSection() {
@@ -130,12 +129,12 @@ declare let cordova: any;
         highlightOnTouch={true}
         onTap={() => app.launch(`${NPM_MODULE_URL}/${plugin.name}`)} />);
     return (
-      <widgetCollection>
+      <$>
         <SubHeader
           left={dimen.m} top={dimen.pxl} right={dimen.m}
           text={this.texts.aboutTabPluginsHeader} />
         {plugins}
-      </widgetCollection>);
+      </$>);
   }
 
   private createDivider() {
@@ -179,10 +178,9 @@ declare let cordova: any;
 
 @component class KeyValueView extends Composite {
 
-  public jsxProperties: ComponentJSX<this>;
   @property public key: string;
   @property public value: string;
-  @property public icon: Image;
+  @property public icon: ImageValue;
 
   constructor(
     properties: Properties<Composite>,
@@ -190,23 +188,23 @@ declare let cordova: any;
     @inject protected readonly fonts: Fonts) {
     super({ height: 72, ...properties });
     this.append(
-      <widgetCollection>
-        <imageView
+      <$>
+        <ImageView
           id='icon'
           left={dimen.m} centerY={0} width={40} height={40}
           cornerRadius={20}
           tintColor={colors.onPrimary}
           background={colors.primary}
           bind-image='icon' />
-        <composite
+        <Composite
           left={dimen.pm} right={dimen.m} centerY={0}>
-          <textView
+          <TextView
             id='key'
             left={0} top={0} right={0}
             font={this.fonts.body2}
             textColor={colors.onBackgroundMedium}
             bind-text='key' />
-          <textView
+          <TextView
             id='value'
             left={0} top={dimen.p} right={0}
             markupEnabled={true}
@@ -214,8 +212,8 @@ declare let cordova: any;
             textColor={colors.onBackground}
             onTapLink={({ url }) => app.launch(url)}
             bind-text='value' />
-        </composite>
-      </widgetCollection>
+        </Composite>
+      </$>
     );
   }
 

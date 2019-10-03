@@ -1,4 +1,4 @@
-import { ui } from 'tabris';
+import { contentView, statusBar } from 'tabris';
 import { resolve } from 'tabris-decorators';
 import { Colors } from './res/Colors';
 import { isIos } from './helper';
@@ -13,7 +13,7 @@ import settings from './settings';
 export default class UILauncher {
 
   constructor() {
-    ui.contentView.background = resolve(Colors).background;
+    contentView.background = resolve(Colors).background;
     if (settings.onboardingComplete) {
       this.showApp();
     } else {
@@ -22,7 +22,7 @@ export default class UILauncher {
   }
 
   private showOnboarding() {
-    ui.statusBar.set({
+    statusBar.set({
       theme: 'light',
       background: resolve(Colors).background
     });
@@ -30,7 +30,7 @@ export default class UILauncher {
   }
 
   private createOnboardingUi() {
-    ui.contentView.append(
+    contentView.append(
       <OnboardingView
         left={0} top={0} right={0} bottom={0}
         onComplete={event => {
@@ -42,13 +42,13 @@ export default class UILauncher {
   }
 
   private showApp() {
-    ui.statusBar.set({
+    statusBar.set({
       background: isIos() ? '#00a4ff' : 'rgba(0,0,0,0.22)',
       theme: 'dark'
     });
     this.createAppUi();
-    const tabFolder = ui.contentView.find(AppTabFolder).first();
-    tabFolder.scrollReceiver = ui.contentView.find(UrlView).first();
+    const tabFolder = contentView.find(AppTabFolder).first();
+    tabFolder.scrollReceiver = contentView.find(UrlView).first();
     const selection = tabFolder.find('#' + settings.selectedTabId).first(AppTab);
     if (selection) {
       tabFolder.selection = selection;
@@ -56,8 +56,8 @@ export default class UILauncher {
   }
 
   private createAppUi() {
-    ui.contentView.append(
-      <widgetCollection>
+    contentView.append(
+      <$>
         <AppTabFolder
           left={0} top={0} right={0} bottom={0}>
           <ExampleGalleryTab
@@ -67,7 +67,7 @@ export default class UILauncher {
         </AppTabFolder>
         <UrlView
           left={0} top={0} right={0} bottom={0} />
-      </widgetCollection>
+      </$>
     );
   }
 

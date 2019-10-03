@@ -1,5 +1,5 @@
-import { Composite, ImageView, Properties, TextView } from 'tabris';
-import { ComponentJSX, Listeners, getById, component, inject } from 'tabris-decorators';
+import { Composite, Listeners, ImageView, Properties, TextView } from 'tabris';
+import { getById, component, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
@@ -9,7 +9,6 @@ import dimen from '../res/dimen';
 
 @component export default class NavigationBar extends Composite {
 
-  public jsxProperties: ComponentJSX<this>;
   public onSkipButton: Listeners<{ target: object }> = new Listeners(this, 'skipButton');
   public onNextButton: Listeners<{ target: object }> = new Listeners(this, 'nextButton');
   @getById private skipView: Composite;
@@ -30,36 +29,36 @@ import dimen from '../res/dimen';
 
   private createUi() {
     this.append(
-      <widgetCollection>
-        <composite
+      <$>
+        <Composite
           id='skipView'
           left={0} top={0} bottom={0}
           highlightOnTouch={true}
           onTap={() => this.onSkipButton.trigger()}>
-          <textView
+          <TextView
             left={dimen.xl} right={dimen.xl} centerY={0}
             text={this.texts.skip}
             font={this.fonts.subtitle1} />
-        </composite>
-        <composite
+        </Composite>
+        <Composite
           top={0} right={0} bottom={0}
           highlightOnTouch={true}
           onTap={() => this.onNextButton.trigger()}>
-          <textView
+          <TextView
             id='nextTextView'
             left={dimen.xl} right={dimen.nxs} centerY={0}
             text={this.texts.next}
             font={this.fonts.subtitle1} />
-          <imageView
+          <ImageView
             id='nextImageView'
             right={dimen.xl} centerY={isAndroid() ? 1 : 0}
             tintColor={this.colors.actionIcon}
             image={this.images.next} />
-        </composite>
-        <composite
+        </Composite>
+        <Composite
           id='progressIndicator'
           centerY={0} centerX={-dimen.xxs} />
-      </widgetCollection>);
+      </$>);
   }
 
   set entries(entries: number) {
@@ -79,13 +78,14 @@ import dimen from '../res/dimen';
       text: lastPage ? this.texts.done : this.texts.next,
       right: lastPage ? dimen.xl : dimen.nxs
     });
-    this.nextImageView.visible = !lastPage;
-    this.skipView.visible = !lastPage;
-    this.progressIndicator
-      .children(ImageView)
-      .forEach((indicator: ImageView, i: number) => {
-        indicator.tintColor = i === index ? this.colors.actionIcon : this.colors.actionIconMedium;
-      });
+    this.nextImageView.set({
+      visible: !lastPage,
+      excludeFromLayout: lastPage
+    });
+    this.skipView.excludeFromLayout = lastPage;
+    this.progressIndicator.children(ImageView).forEach((indicator: ImageView, i: number) => {
+      indicator.tintColor = i === index ? this.colors.actionIcon : this.colors.actionIconMedium;
+    });
   }
 
 }

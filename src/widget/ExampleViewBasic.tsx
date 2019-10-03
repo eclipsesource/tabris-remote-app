@@ -1,5 +1,5 @@
 import { Composite, ImageView, Properties, TextView } from 'tabris';
-import { ComponentJSX, component, getById, inject } from 'tabris-decorators';
+import { component, getById, inject } from 'tabris-decorators';
 import { ExampleGalleryEntry, Example } from '../model/ExampleGallery';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
@@ -12,7 +12,6 @@ import dimen from '../res/dimen';
 
 @component export default class ExampleViewBasic extends ExampleView {
 
-  public jsxProperties: ComponentJSX<this>;
   @getById private name: TextView;
   @getById private image: ImageView;
   @getById private description: TextView;
@@ -38,31 +37,31 @@ import dimen from '../res/dimen';
 
   private createUi() {
     this.append(
-      <widgetCollection>
+      <$>
         <ActionIcon
           id='docsLink'
           right={dimen.xxs} top={dimen.xxs}
           image={this.images.docsLink}
           highlightOnTouch={false} />
-        <textView
+        <TextView
           id='name'
           left={dimen.m} top={dimen.m} right={dimen.pxxs}
           font={this.fonts.h5}
           maxLines={1}
           textColor={this.colors.onSurface} />
-        <imageView
+        <ImageView
           id='image'
           left={dimen.m} top={['#name', dimen.m]} width={100} height={100}
           background={this.colors.surface}
           elevation={2}
           cornerRadius={2} />
-        <textView
+        <TextView
           id='description'
           left={dimen.pm} top={['#name', dimen.m]} right={dimen.m}
           maxLines={3}
           font={this.fonts.body1}
           textColor={this.colors.onSurfaceMedium} />
-        <textView
+        <TextView
           right={dimen.m} bottom={dimen.m}
           markupEnabled={true}
           text={this.texts.showSourceCode}
@@ -73,7 +72,7 @@ import dimen from '../res/dimen';
           id='divider'
           left={dimen.m} right={dimen.m} bottom={0}
           background={this.colors.onSurfaceDivider} />
-      </widgetCollection>
+      </$>
     );
   }
 
