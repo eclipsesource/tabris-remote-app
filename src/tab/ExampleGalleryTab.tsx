@@ -39,7 +39,7 @@ import dimen from '../res/dimen';
     this.append(
       this.exampleList = <CollectionView
         id='exampleList'
-        left={0} top={0} right={0} bottom={0}
+        stretch
         cellHeight={isIos() ? 192 : 'auto'}
         cellType={index => index === 0 ? 'header' : 'example'}
         createCell={(type: string) => this.createCell(type)}
@@ -91,8 +91,8 @@ import dimen from '../res/dimen';
   private createExampleCell() {
     if (isIos()) {
       return <ExampleViewBasic
-        left={0} top={dimen.xs} right={0}
-        highlightOnTouch={true} />;
+        stretchX top={dimen.xs}
+        highlightOnTouch />;
     }
     return (
       <Composite>

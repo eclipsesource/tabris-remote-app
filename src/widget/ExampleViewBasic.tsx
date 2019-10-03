@@ -63,14 +63,14 @@ import dimen from '../res/dimen';
           textColor={this.colors.onSurfaceMedium} />
         <TextView
           right={dimen.m} bottom={dimen.m}
-          markupEnabled={true}
+          markupEnabled
           text={this.texts.showSourceCode}
           font={this.fonts.subtitle1}
           highlightOnTouch
           onTap={() => showExampleSource(this.example.sourcePath)} />
         <Divider
           id='divider'
-          left={dimen.m} right={dimen.m} bottom={0}
+          left={dimen.m} right={dimen.m} bottom
           background={this.colors.onSurfaceDivider} />
       </$>
     );

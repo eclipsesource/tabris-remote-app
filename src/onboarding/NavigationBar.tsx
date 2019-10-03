@@ -32,21 +32,21 @@ import dimen from '../res/dimen';
       <$>
         <Composite
           id='skipView'
-          left={0} top={0} bottom={0}
-          highlightOnTouch={true}
+          left stretchY
+          highlightOnTouch
           onTap={() => this.onSkipButton.trigger()}>
           <TextView
-            left={dimen.xl} right={dimen.xl} centerY={0}
+            left={dimen.xl} right={dimen.xl} centerY
             text={this.texts.skip}
             font={this.fonts.subtitle1} />
         </Composite>
         <Composite
-          top={0} right={0} bottom={0}
-          highlightOnTouch={true}
+          stretchY right
+          highlightOnTouch
           onTap={() => this.onNextButton.trigger()}>
           <TextView
             id='nextTextView'
-            left={dimen.xl} right={dimen.nxs} centerY={0}
+            left={dimen.xl} right={dimen.nxs} centerY
             text={this.texts.next}
             font={this.fonts.subtitle1} />
           <ImageView
@@ -57,7 +57,7 @@ import dimen from '../res/dimen';
         </Composite>
         <Composite
           id='progressIndicator'
-          centerY={0} centerX={-dimen.xxs} />
+          centerY centerX={-dimen.xxs} />
       </$>);
   }
 

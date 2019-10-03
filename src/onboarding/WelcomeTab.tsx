@@ -22,9 +22,9 @@ export default class WelcomeTab extends OnboardingTab {
   private createUi() {
     this.append(
       <Composite
-        left={0} right={0} centerY={0}>
+        stretchX centerY>
         <ImageView
-          top={0} centerX={0} width={256} height={256}
+          top centerX width={256} height={256}
           cornerRadius={128}
           image={this.images.onboardingTabrisLogo}
           background={`linear-gradient(25deg, ${this.colors.primaryDark} 10%, ${this.colors.primaryLight})`} />

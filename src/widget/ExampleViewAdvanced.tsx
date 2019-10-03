@@ -67,10 +67,10 @@ import dimen from '../res/dimen';
           font={this.fonts.body1} />
         <ImageView
           id='image'
-          top={dimen.ps} centerX={0} />
+          top={dimen.ps} centerX />
         <Divider
           id='divider'
-          left={0} top={dimen.ps} right={0}
+          stretchX top={dimen.ps}
           background={this.colors.onSurfaceDivider} />
         <LinkView
           id='linkView'

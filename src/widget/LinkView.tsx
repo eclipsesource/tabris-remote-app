@@ -17,12 +17,12 @@ import dimen from '../res/dimen';
         this.append(
             <$>
                 <ActionIcon
-                    left={dimen.xxs} centerY={0}
+                    left={dimen.xxs} centerY
                     image={this.images.codeLink} />
                 <TextView
                     id='title'
-                    left={dimen.pxxs} right={dimen.m} centerY={0}
-                    markupEnabled={true}
+                    left={dimen.pxxs} right={dimen.m} centerY
+                    markupEnabled
                     maxLines={2}
                     font={fonts.subtitle2} />
             </$>

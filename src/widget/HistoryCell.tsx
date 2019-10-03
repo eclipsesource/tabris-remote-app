@@ -24,18 +24,18 @@ import dimen from '../res/dimen';
     this.append(
       <$>
         <ImageView
-          left={dimen.m} centerY={0}
+          left={dimen.m} centerY
           image={images.history}
           tintColor={colors.actionIcon} />
         <TextView
           id='historyUrl'
-          left={dimen.pm} right={dimen.nm} centerY={0}
+          left={dimen.pm} right={dimen.nm} centerY
           font={this.fonts.body2}
           maxLines={2}
           textColor={colors.onSurfaceMedium}
           bind-text='url' />
         <ActionIcon
-          right={dimen.xxs} centerY={0}
+          right={dimen.xxs} centerY
           image={this.images.edit}
           onTap={() => this.updateUrlInput(this.url)} />
       </$>

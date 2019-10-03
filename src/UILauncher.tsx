@@ -32,7 +32,7 @@ export default class UILauncher {
   private createOnboardingUi() {
     contentView.append(
       <OnboardingView
-        left={0} top={0} right={0} bottom={0}
+        stretch
         onComplete={event => {
           event.target.dispose();
           settings.onboardingComplete = true;
@@ -59,14 +59,14 @@ export default class UILauncher {
     contentView.append(
       <$>
         <AppTabFolder
-          left={0} top={0} right={0} bottom={0}>
+          stretch>
           <ExampleGalleryTab
             id='exampleGalleryTab' />
           <AboutTab
             id='aboutTab' />
         </AppTabFolder>
         <UrlView
-          left={0} top={0} right={0} bottom={0} />
+          stretch />
       </$>
     );
   }

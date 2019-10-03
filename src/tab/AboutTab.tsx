@@ -1,4 +1,4 @@
-import { Composite, Properties, ScrollView, app, TextView, ImageValue, ImageView } from 'tabris';
+import { Composite, Properties, ScrollView, app, TextView, ImageValue, ImageView, StackLayout } from 'tabris';
 import { component, property, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
@@ -47,11 +47,13 @@ declare let cordova: any;
     this.append(
       this.scrollView = <ScrollView
         id='scrollView'
-        left={0} top={0} right={0} bottom={0}
+        stretch
+        layout={new StackLayout({ alignment: 'stretchX' })}
+        scrollbarVisible={false}
         onScrollY={(event) => this.updateScrollReceiver(event.offset)}>
         <Header
           id='header'
-          left={0} top={0} right={0}
+          stretchX top
           title={this.texts.about}
           description={this.texts.aboutTabHeaderDescription} />
         {this.createFeedbackSection()}
@@ -59,15 +61,15 @@ declare let cordova: any;
         {this.createCordovaPluginsSection()}
         {this.createDivider()}
         <TextView
-          left={dimen.m} top={dimen.pl} right={dimen.m}
+          left={dimen.m} top={dimen.l} right={dimen.m}
           font={`italic ${this.fonts.body2}`}
-          markupEnabled={true}
+          markupEnabled
           lineSpacing={1.2}
           textColor={this.colors.onBackgroundMedium}
           alignment='centerX'
           text={this.texts.aboutTabRights}
           onTapLink={({ url }) => app.launch(url)} />
-        <Composite left={0} top={dimen.p} right={0} height={dimen.l} />
+        <Composite stretchX height={dimen.l} />
       </ScrollView>
     );
   }
@@ -77,13 +79,12 @@ declare let cordova: any;
       <$>
         <SubHeader
           text={this.texts.feedback}
-          left={dimen.m} top={dimen.pl} right={dimen.m} />
+          left={dimen.m} top={dimen.l} right={dimen.m} />
         <KeyValueView
-          left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabFeedbackKey}
           value={this.texts.aboutTabFeedbackValue}
           icon={this.images.aboutTabFeedbackIcon}
-          highlightOnTouch={true}
+          highlightOnTouch
           onTap={() => app.launch('mailto:care@tabris.com?subject=Tabris%20for%20Eclipse%20RAP%20feedback')} />
       </$>);
   }
@@ -93,26 +94,22 @@ declare let cordova: any;
       <$>
         <SubHeader
           text={this.texts.versions}
-          left={dimen.m} top={dimen.pl} right={dimen.m} />
+          left={dimen.m} top={dimen.l} right={dimen.m} />
         <KeyValueView
-          left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabTabrisJsRemoteVersionKey}
           value={tabrisJsRemotePackageJson.version}
           icon={this.images.aboutTabTabrisVersionIcon} />
         <KeyValueView
-          left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabTabrisVersionKey}
           value={tabrisPackageJson.version}
           icon={this.images.aboutTabTabrisVersionIcon}
-          highlightOnTouch={true}
+          highlightOnTouch
           onTap={() => app.launch(`${NPM_MODULE_URL}/tabris`)} />
         <KeyValueView
-          left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabAppVersionKey}
           value={app.version}
           icon={this.images.aboutTabAppVersionIcon} />
         <KeyValueView
-          left={0} top={dimen.p} right={0}
           key={this.texts.aboutTabAppVersionCodeKey}
           value={app.versionCode.toString()}
           icon={this.images.aboutTabAppVersionCodeIcon} />
@@ -122,16 +119,15 @@ declare let cordova: any;
   private createCordovaPluginsSection() {
     const plugins = AboutTab.getCordovaPlugins().map((plugin) =>
       <KeyValueView
-        left={0} top={dimen.p} right={0}
         key={plugin.name}
         value={plugin.version}
         icon={this.images.aboutTabPluginsIcon}
-        highlightOnTouch={true}
+        highlightOnTouch
         onTap={() => app.launch(`${NPM_MODULE_URL}/${plugin.name}`)} />);
     return (
       <$>
         <SubHeader
-          left={dimen.m} top={dimen.pxl} right={dimen.m}
+          left={dimen.m} top={dimen.xl} right={dimen.m}
           text={this.texts.aboutTabPluginsHeader} />
         {plugins}
       </$>);
@@ -140,7 +136,6 @@ declare let cordova: any;
   private createDivider() {
     return (
       <Divider
-        left={0} top={dimen.pl} right={0}
         background={this.colors.onBackgroundDivider} />);
   }
 
@@ -191,23 +186,23 @@ declare let cordova: any;
       <$>
         <ImageView
           id='icon'
-          left={dimen.m} centerY={0} width={40} height={40}
+          left={dimen.m} centerY width={40} height={40}
           cornerRadius={20}
           tintColor={colors.onPrimary}
           background={colors.primary}
           bind-image='icon' />
         <Composite
-          left={dimen.pm} right={dimen.m} centerY={0}>
+          left={dimen.pm} right={dimen.m} centerY>
           <TextView
             id='key'
-            left={0} top={0} right={0}
+            stretchX top
             font={this.fonts.body2}
             textColor={colors.onBackgroundMedium}
             bind-text='key' />
           <TextView
             id='value'
-            left={0} top={dimen.p} right={0}
-            markupEnabled={true}
+            stretchX top={dimen.p}
+            markupEnabled
             font={this.fonts.body1}
             textColor={colors.onBackground}
             onTapLink={({ url }) => app.launch(url)}

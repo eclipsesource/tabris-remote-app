@@ -73,30 +73,30 @@ declare var esbarcodescanner: any;
       <$>
         <Composite
           id='details'
-          left={0} top={0} right={0} bottom={0}
+          stretch
           background={this.colors.surface}
           visible={false}>
           <Composite
-            left={0} top={dimen.urlBarTop}
-            right={0} height={dimen.urlBarHeight}
+            left top={dimen.urlBarTop}
+            right height={dimen.urlBarHeight}
             background={this.colors.surface}>
             <ActionIcon
               id='detailsCloseIcon'
-              left={dimen.xxs} centerY={0}
+              left={dimen.xxs} centerY
               image={this.images.urlViewDetailsCloseIcon}
               onTap={() => this.toggleExpansion()} />
             <ActionIcon
               id='detailsScanQrCode'
-              right={dimen.xxs} centerY={0}
+              right={dimen.xxs} centerY
               image={this.images.urlViewScanQrCode}
               onTap={() => this.showQrCodeScanner()} />
           </Composite>
           <Divider
             id='separator'
-            left={0} top={dimen.pxs} right={0}
+            stretchX top={dimen.pxs}
             background={this.colors.onSurfaceDivider} />
           <CollectionView
-            left={0} top={dimen.pxs} right={0} bottom={0}
+            stretchX top={dimen.pxs} bottom
             cellType={index => index === 0 ? 'header' : 'widget'}
             createCell={() => create(HistoryCell, this.urlInput)}
             updateCell={(cell: HistoryCell, index: number) => cell.url = this.appLauncher.recentUrls[index]}
@@ -110,7 +110,7 @@ declare var esbarcodescanner: any;
           elevation={8}>
           <ImageView
             id='tabrisLogo'
-            left={dimen.xs} centerY={0}
+            left={dimen.xs} centerY
             image={this.images.urlViewTabrisLogo}
             tintColor={this.colors.actionIcon} />
           <TextInput
@@ -130,9 +130,9 @@ declare var esbarcodescanner: any;
             onAccept={() => this.appLauncher.launchUrl(this.urlInput.text)} />
           <ImageView
             id='scanQrCode'
-            right={dimen.xs} centerY={0}
+            right={dimen.xs} centerY
             tintColor={this.colors.actionIcon}
-            highlightOnTouch={true}
+            highlightOnTouch
             image={this.images.urlViewScanQrCode}
             onTap={() => this.showQrCodeScanner()} />
           <Composite
@@ -141,9 +141,9 @@ declare var esbarcodescanner: any;
             background={this.colors.onSurfaceDivider} />
           <ImageView
             id='launchIcon'
-            right={dimen.xs} centerY={0}
+            right={dimen.xs} centerY
             tintColor={this.colors.actionIcon}
-            highlightOnTouch={true}
+            highlightOnTouch
             image={this.images.urlViewLaunchIcon}
             onTap={() => this.appLauncher.launchUrl(this.urlInput.text)} />
         </Composite>
@@ -257,14 +257,14 @@ declare var esbarcodescanner: any;
       <$>
         <esbarcodescanner.BarcodeScannerView
           id='scanner'
-          left={0} top={0} right={0} bottom={0}
+          stretch
           scaleMode='fill'
           onDetect={(event: any) => this.handleQrCodeScanSuccess(event)}
           onError={(error: any) => this.handleQrCodeScanError(error)} />
         <TextView
-          left={0} right={0} bottom={0} height={dimen.xxxl}
+          stretchX bottom height={dimen.xxxl}
           text={this.texts.cancel}
-          highlightOnTouch={true}
+          highlightOnTouch
           textColor='white'
           alignment='centerX'
           font={this.fonts.h6}
