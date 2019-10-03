@@ -24,7 +24,7 @@ import dimen from '../res/dimen';
     @inject protected readonly fonts: Fonts,
     @inject protected readonly texts: Texts) {
     super({ background: colors.surface, ...properties });
-    this.on({ tap: () => launchExample(this.example.runPath) });
+    this.onTap(() => launchExample(this.example.runPath));
     this.createUi();
   }
 

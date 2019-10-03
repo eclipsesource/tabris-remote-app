@@ -32,7 +32,7 @@ import dimen from '../res/dimen';
       padding: { bottom: dimen.xs },
       ...properties
     });
-    this.on({ tap: () => launchExample(this.example.runPath) });
+    this.onTap(() => launchExample(this.example.runPath));
     this.createUi();
   }
 

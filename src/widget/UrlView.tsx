@@ -244,7 +244,7 @@ declare var esbarcodescanner: any;
     this.qrCodePopover = new Popover({
       width: 300, height: 400,
       anchor: this.urlInput
-    }).on('close', () => this.qrCodePopover = null)
+    }).onClose(() => this.qrCodePopover = null)
       .open();
     this.appendQrCodePopoverContent();
     // @ts-ignore

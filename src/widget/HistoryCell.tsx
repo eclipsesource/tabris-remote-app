@@ -20,7 +20,7 @@ import dimen from '../res/dimen';
     @inject protected readonly fonts: Fonts) {
     super({ highlightOnTouch: true });
     this.urlInput = urlInput;
-    this.on({ tap: () => appLauncher.launchUrl(this.url) });
+    this.onTap(() => appLauncher.launchUrl(this.url));
     this.append(
       <$>
         <ImageView
