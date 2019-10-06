@@ -21,8 +21,5 @@ export function launchExample(runPath: string) {
 
 export function showExampleSource(sourcePath: string) {
   app.launch(`${EXAMPLE_SOURCE_BASE_URL}/${sourcePath}`)
-    .catch(() => new AlertDialog({
-      message: resolve(Texts).cannotOpenExampleSourceError(sourcePath),
-      buttons: { ok: resolve(Texts).ok }
-    }).open());
+    .catch(() => AlertDialog.open(resolve(Texts).cannotOpenExampleSourceError(sourcePath)));
 }

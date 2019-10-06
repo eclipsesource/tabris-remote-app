@@ -265,10 +265,7 @@ declare var esbarcodescanner: any;
 
   private handleQrCodeScanError(error: { message: string }) {
     this.closeQrCodePopover();
-    new AlertDialog({
-      message: this.texts.urlViewQrCodeScanError(error.message),
-      buttons: { ok: this.texts.ok }
-    }).open();
+    AlertDialog.open(this.texts.urlViewQrCodeScanError(error.message));
   }
 
   private closeQrCodePopover() {

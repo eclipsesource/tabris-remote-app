@@ -1,7 +1,7 @@
 import { Properties, Tab, Widget } from 'tabris';
+import { resolve } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import ScrollReceiver from './ScrollReceiver';
-import { resolve } from 'tabris-decorators';
 
 export default class AppTab extends Tab {
 

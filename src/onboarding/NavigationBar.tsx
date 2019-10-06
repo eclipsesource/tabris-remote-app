@@ -24,7 +24,7 @@ import dimen from '../res/dimen';
     @inject protected readonly texts: Texts) {
     super();
     this.createUi();
-    this.set(properties);
+    this.set<NavigationBar>(properties);
   }
 
   private createUi() {
