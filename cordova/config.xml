@@ -17,7 +17,7 @@
 
   <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
   <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
-  <plugin name="tabris-plugin-camera" spec="https://github.com/eclipsesource/tabris-plugin-camera.git" />
+  <plugin name="tabris-plugin-camera" spec="https://github.com/eclipsesource/tabris-plugin-camera.git#tabris-3.x" />
   <plugin name="tabris-plugin-barcode-scanner" spec="https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git" />
   <plugin name="cordova-plugin-ios-non-exempt-encryption" spec="~1.0.0" />
 
