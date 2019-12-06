@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget
   id="com.eclipsesource.tabris.remote"
-  version="3.6.3"
+  version="3.10.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   android-versionCode="$BUILD_NUMBER"
   ios-CFBundleVersion="$BUILD_NUMBER">
@@ -18,7 +18,7 @@
   <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
   <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
   <plugin name="tabris-plugin-camera" spec="https://github.com/eclipsesource/tabris-plugin-camera.git" />
-  <plugin name="tabris-plugin-barcode-scanner" spec="https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git#8de9218216e67e47777da42ae3ba804a0d3c6e17" />
+  <plugin name="tabris-plugin-barcode-scanner" spec="https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git" />
   <plugin name="cordova-plugin-ios-non-exempt-encryption" spec="~1.0.0" />
 
   <edit-config file="*-Info.plist" target="NSCameraUsageDescription" mode="overwrite">
@@ -80,6 +80,12 @@
   </platform>
 
   <platform name="android">
+  
+	<config-file target="app/src/main/AndroidManifest.xml" parent="/manifest">
+	  <uses-permission android:name="android.permission.CAMERA"/>
+	  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	</config-file>
 
     <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
       <application android:usesCleartextTraffic="true" />
