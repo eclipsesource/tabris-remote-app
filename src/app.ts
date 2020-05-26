@@ -1,7 +1,9 @@
-import { ActivityIndicator, contentView } from 'tabris';
+import { ActivityIndicator, contentView, devTools } from 'tabris';
 import { BasicLauncher } from 'tabris-js-remote';
 import { autostart, url, id, version, debug } from './launchConfig';
 import UILauncher from './UILauncher';
+
+devTools.hideUi();
 
 if (autostart) {
   let activityIndicator = new ActivityIndicator({
