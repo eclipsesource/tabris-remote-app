@@ -1,19 +1,19 @@
-import { contentView, statusBar } from 'tabris';
+import { contentView, statusBar, navigationBar } from 'tabris';
 import { resolve } from 'tabris-decorators';
 import { Colors } from './res/Colors';
 import { isIos } from './helper';
 import ExampleGalleryTab from './tab/ExampleGalleryTab';
 import OnboardingView from './onboarding/OnboardingView';
-import AppTabFolder from './widget/AppTabFolder';
+import AppTabFolder from './tab/AppTabFolder';
 import AboutTab from './tab/AboutTab';
 import UrlView from './widget/UrlView';
-import AppTab from './widget/AppTab';
+import AppTab from './tab/AppTab';
 import settings from './settings';
 
 export default class UILauncher {
 
   constructor() {
-    contentView.background = resolve(Colors).background;
+    this.initUi();
     if (settings.onboardingComplete) {
       this.showApp();
     } else {
@@ -21,9 +21,19 @@ export default class UILauncher {
     }
   }
 
+  private initUi() {
+    const background = resolve(Colors).background;
+    navigationBar.set({
+      background: background,
+      theme: 'light'
+    });
+    contentView.background = background;
+  }
+
   private showOnboarding() {
     statusBar.set({
       theme: 'light',
+      displayMode: 'float',
       background: resolve(Colors).background
     });
     this.createOnboardingUi();
@@ -44,7 +54,8 @@ export default class UILauncher {
   private showApp() {
     statusBar.set({
       background: isIos() ? '#00a4ff' : 'rgba(0,0,0,0.22)',
-      theme: 'dark'
+      theme: 'dark',
+      displayMode: isIos() ? 'default' : 'float'
     });
     this.createAppUi();
     const tabFolder = $(AppTabFolder).only();
@@ -58,15 +69,11 @@ export default class UILauncher {
   private createAppUi() {
     contentView.append(
       <$>
-        <AppTabFolder
-          stretch>
-          <ExampleGalleryTab
-            id='exampleGalleryTab' />
-          <AboutTab
-            id='aboutTab' />
+        <AppTabFolder stretch>
+          <ExampleGalleryTab id='exampleGalleryTab' />
+          <AboutTab id='aboutTab' />
         </AppTabFolder>
-        <UrlView
-          stretch />
+        <UrlView stretch />
       </$>
     );
   }
