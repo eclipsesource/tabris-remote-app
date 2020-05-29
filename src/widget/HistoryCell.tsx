@@ -1,4 +1,4 @@
-import { Composite, TextInput } from 'tabris';
+import { Composite, TextInput, ImageView, TextView } from 'tabris';
 import { component, property, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
@@ -20,25 +20,25 @@ import dimen from '../res/dimen';
     @inject protected readonly fonts: Fonts) {
     super({ highlightOnTouch: true });
     this.urlInput = urlInput;
-    this.on({ tap: () => appLauncher.launchUrl(this.url) });
+    this.onTap(() => appLauncher.launchUrl(this.url));
     this.append(
-      <widgetCollection>
-        <imageView
-          left={dimen.m} centerY={0}
+      <$>
+        <ImageView
+          left={dimen.m} centerY
           image={images.history}
           tintColor={colors.actionIcon} />
-        <textView
+        <TextView
           id='historyUrl'
-          left={dimen.pm} right={dimen.nm} centerY={0}
+          left={dimen.pm} right={dimen.nm} centerY
           font={this.fonts.body2}
           maxLines={2}
           textColor={colors.onSurfaceMedium}
           bind-text='url' />
         <ActionIcon
-          right={dimen.xxs} centerY={0}
+          right={dimen.xxs} centerY
           image={this.images.edit}
           onTap={() => this.updateUrlInput(this.url)} />
-      </widgetCollection>
+      </$>
     );
   }
 

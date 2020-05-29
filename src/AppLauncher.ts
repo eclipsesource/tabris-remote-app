@@ -1,4 +1,4 @@
-import { AlertDialog, ui } from 'tabris';
+import { AlertDialog, contentView } from 'tabris';
 import { shared, inject } from 'tabris-decorators';
 import { BasicLauncher } from 'tabris-js-remote';
 import { Texts } from './res/Texts';
@@ -60,7 +60,7 @@ interface LaunchConfig {
     let config = this.createLaunchConfig(url);
     try {
       new BasicLauncher().start(config);
-      ui.contentView.children().dispose();
+      contentView.children().dispose();
     } catch (ex) {
       this.showDialog(this.texts.error, ex.message);
     }

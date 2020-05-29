@@ -1,8 +1,9 @@
 import {
-  AlertDialog, Composite, ImageView, Popover, Properties, TextInput, Widget, app
+  AlertDialog, Composite, ImageView, Popover, Properties,
+  TextInput, Widget, app, CollectionView, TextView, Bounds, permission
 } from 'tabris';
-import { ComponentJSX, component, getById, inject, create } from 'tabris-decorators';
-import { contentTopOffset, isIos } from '../helper';
+import { component, getById, inject, create } from 'tabris-decorators';
+import { contentTopOffset, isIos, statusBarOffset } from '../helper';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
@@ -19,7 +20,6 @@ declare var esbarcodescanner: any;
 
 @component export default class UrlView extends Composite implements ScrollReceiver {
 
-  public jsxProperties: ComponentJSX<this>;
   @getById private urlBar: Composite;
   @getById private urlInput: TextInput;
   @getById private details: Composite;
@@ -41,14 +41,12 @@ declare var esbarcodescanner: any;
     @inject protected readonly texts: Texts) {
     super(properties);
     this.createUi();
-    app.on({
-      backNavigation: (event) => {
-        if (this.qrCodePopover) {
-          this.closeQrCodePopover();
-        } else if (this.expanded) {
-          event.preventDefault();
-          this.toggleExpansion();
-        }
+    app.onBackNavigation(event => {
+      if (this.qrCodePopover) {
+        this.closeQrCodePopover();
+      } else if (this.expanded) {
+        event.preventDefault();
+        this.toggleExpansion();
       }
     });
   }
@@ -72,81 +70,89 @@ declare var esbarcodescanner: any;
 
   private createUi() {
     this.append(
-      <widgetCollection>
-        <composite
+      <$>
+        <Composite
           id='details'
-          left={0} top={0} right={0} bottom={0}
+          stretch
           background={this.colors.surface}
           visible={false}>
-          <composite
-            left={0} top={dimen.urlBarTop}
-            right={0} height={dimen.urlBarHeight}
+          <Composite
+            left
+            top={statusBarOffset() + dimen.urlBarTop}
+            right
+            height={dimen.urlBarHeight}
             background={this.colors.surface}>
             <ActionIcon
               id='detailsCloseIcon'
-              left={dimen.xxs} centerY={0}
+              left={dimen.xxs} centerY
               image={this.images.urlViewDetailsCloseIcon}
               onTap={() => this.toggleExpansion()} />
             <ActionIcon
               id='detailsScanQrCode'
-              right={dimen.xxs} centerY={0}
+              right={dimen.xxs} centerY
               image={this.images.urlViewScanQrCode}
               onTap={() => this.showQrCodeScanner()} />
-          </composite>
+          </Composite>
           <Divider
             id='separator'
-            left={0} top={dimen.pxs} right={0}
+            stretchX top={dimen.pxs}
             background={this.colors.onSurfaceDivider} />
-          <collectionView
-            left={0} top={dimen.pxs} right={0} bottom={0}
+          <CollectionView
+            stretchX top={dimen.pxs} bottom
             cellType={index => index === 0 ? 'header' : 'widget'}
             createCell={() => create(HistoryCell, this.urlInput)}
             updateCell={(cell: HistoryCell, index: number) => cell.url = this.appLauncher.recentUrls[index]}
             itemCount={this.appLauncher.recentUrls.length} />
-        </composite>
-        <composite
+        </Composite>
+        <Composite
           id='urlBar'
-          left={dimen.m} top={dimen.urlBarTop} right={dimen.m} height={dimen.urlBarHeight}
+          left={dimen.m}
+          top={statusBarOffset() + dimen.urlBarTop}
+          right={dimen.m}
+          height={dimen.urlBarHeight}
           background={this.colors.surface}
           cornerRadius={dimen.urlBarCornerRadius}
           elevation={8}>
-          <imageView
+          <ImageView
             id='tabrisLogo'
-            left={dimen.xs} centerY={0}
+            left={dimen.xs} centerY
             image={this.images.urlViewTabrisLogo}
             tintColor={this.colors.actionIcon} />
-          <textInput
+          <TextInput
             id='urlInput'
-            left={dimen.pxs} right={dimen.nxs} centerY={0}
+            left={dimen.pxs} right={dimen.nxs} centerY
+            style='none'
             message={this.texts.urlViewInputMessage}
             textColor={this.colors.onSurface}
+            floatMessage={false}
             borderColor={'transparent'}
             background={'transparent'}
             keyboard='url'
+            keepFocus
             text={this.appLauncher.getLastLaunchedUrl()}
             enterKeyType='done'
-            onTap={() => this.focusGained()}
+            onFocus={() => this.focusGained()}
             onAccept={() => this.appLauncher.launchUrl(this.urlInput.text)} />
-          <imageView
+          <ImageView
             id='scanQrCode'
-            right={dimen.xs} centerY={0}
+            right={dimen.xs} centerY
             tintColor={this.colors.actionIcon}
-            highlightOnTouch={true}
+            highlightOnTouch
             image={this.images.urlViewScanQrCode}
             onTap={() => this.showQrCodeScanner()} />
-          <composite
+          <Composite
             id='qrCodeDivider'
             width={1} top={dimen.xs} right={dimen.ns} bottom={dimen.xs}
             background={this.colors.onSurfaceDivider} />
-          <imageView
+          <ImageView
             id='launchIcon'
-            right={dimen.xs} centerY={0}
+            right={dimen.xs} centerY
             tintColor={this.colors.actionIcon}
-            highlightOnTouch={true}
+            highlightOnTouch
             image={this.images.urlViewLaunchIcon}
             onTap={() => this.appLauncher.launchUrl(this.urlInput.text)} />
-        </composite>
-      </widgetCollection>
+        </Composite>
+      </$>
     );
     this.updateLaunchIconVisibility();
   }
@@ -199,13 +205,13 @@ declare var esbarcodescanner: any;
 
   private animateIconExpansion() {
     if (this.expanded) {
-      this.animateMove(this.detailsScanQrCode, -dimen.m);
-      this.animateMove(this.detailsCloseIcon, dimen.m);
+      this.animateMove(this.detailsScanQrCode, this.scanQrCode.absoluteBounds, this.detailsScanQrCode.absoluteBounds);
+      this.animateMove(this.detailsCloseIcon, this.tabrisLogo.absoluteBounds, this.detailsCloseIcon.absoluteBounds);
     }
   }
 
-  private animateMove(target: Widget, translationX: number) {
-    target.transform = { translationY: 0, translationX };
+  private animateMove(target: Widget, srcBounds: Bounds, destBounds: Bounds) {
+    target.transform = { translationY: 0, translationX: srcBounds.left - destBounds.left };
     // tslint:disable-next-line: no-floating-promises
     target.animate(
       { transform: { translationX: 0, translationY: 0 } },
@@ -213,64 +219,43 @@ declare var esbarcodescanner: any;
   }
 
   private showQrCodeScanner() {
-    // @ts-ignore
-    const diagnostic = cordova.plugins.diagnostic;
-    diagnostic.requestCameraAuthorization(
-      (status: any) => this.cameraAuthorizationSuccess(diagnostic, status),
-      (error: any) => this.cameraAuthorizationError(error),
-      false);
-  }
-
-  private cameraAuthorizationSuccess(diagnostic: any, status: any) {
-    if (status === diagnostic.permissionStatus.GRANTED) {
-      this.showQrCodeScannerPopover();
-      return;
-    }
-    new AlertDialog({
-      message: this.texts.urlViewCameraPermissionError,
-      buttons: { ok: this.texts.ok }
-    }).open();
-  }
-
-  private cameraAuthorizationError(error: any) {
-    new AlertDialog({
-      message: this.texts.urlViewCameraAuthorizationError(error),
-      buttons: { ok: this.texts.ok }
-    }).open()
+    permission.withAuthorization('camera',
+      () => this.showQrCodeScannerPopover(),
+      () => AlertDialog.open(this.texts.urlViewCameraPermissionError),
+      (error: any) => AlertDialog.open(this.texts.urlViewCameraAuthorizationError(error)));
   }
 
   private showQrCodeScannerPopover() {
     this.qrCodePopover = new Popover({
       width: 300, height: 400,
       anchor: this.urlInput
-    }).on('close', () => this.qrCodePopover = null)
+    }).onClose(() => this.qrCodePopover = null)
       .open();
     this.appendQrCodePopoverContent();
     // @ts-ignore
-    this.qrCodePopover.contentView
-      .find('#scanner').first().start(['qr']);
+    this.qrCodePopover.contentView.find('#scanner').only(esbarcodescanner.BarcodeScannerView).start(['qr']);
   }
 
   private appendQrCodePopoverContent() {
     // @ts-ignore
     this.qrCodePopover.contentView.append(
-      <widgetCollection>
+      <$>
         <esbarcodescanner.BarcodeScannerView
           id='scanner'
-          left={0} top={0} right={0} bottom={0}
+          stretch
           scaleMode='fill'
           onDetect={(event: any) => this.handleQrCodeScanSuccess(event)}
           onError={(error: any) => this.handleQrCodeScanError(error)} />
-        <textView
-          left={0} right={0} bottom={0} height={dimen.xxxl}
+        <TextView
+          stretchX bottom height={dimen.xxxl}
           text={this.texts.cancel}
-          highlightOnTouch={true}
+          highlightOnTouch
           textColor='white'
-          alignment='center'
+          alignment='centerX'
           font={this.fonts.h6}
           background='#00000070'
           onTap={() => this.closeQrCodePopover()} />
-      </widgetCollection>
+      </$>
     );
   }
 
@@ -285,10 +270,7 @@ declare var esbarcodescanner: any;
 
   private handleQrCodeScanError(error: { message: string }) {
     this.closeQrCodePopover();
-    new AlertDialog({
-      message: this.texts.urlViewQrCodeScanError(error.message),
-      buttons: { ok: this.texts.ok }
-    }).open();
+    AlertDialog.open(this.texts.urlViewQrCodeScanError(error.message));
   }
 
   private closeQrCodePopover() {

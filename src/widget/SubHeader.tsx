@@ -1,11 +1,9 @@
 import { TextView, Properties } from 'tabris';
-import { ComponentJSX, inject } from 'tabris-decorators';
+import { inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import { Fonts } from '../res/Fonts';
 
 export default class SubHeader extends TextView {
-
-  public jsxProperties: ComponentJSX<this>;
 
   constructor(
     properties: Properties<TextView>,

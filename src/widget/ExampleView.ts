@@ -4,7 +4,7 @@ import { ExampleGalleryEntry } from '../model/ExampleGallery';
 import { Texts } from '../res/Texts';
 import AppLauncher from '../AppLauncher';
 
-const EXAMPLE_BASE_URL = 'http://tabris.eclipsesource.com/3.6';
+const EXAMPLE_BASE_URL = 'http://tabris.eclipsesource.com/3.12';
 const EXAMPLE_SOURCE_BASE_URL = 'https://github.com/eclipsesource/tabris-demos/tree/master/com.eclipsesource.tabris.demos/src/com/eclipsesource/tabris/demos/entrypoints';
 
 export default class ExampleView extends Composite {
@@ -21,8 +21,5 @@ export function launchExample(runPath: string) {
 
 export function showExampleSource(sourcePath: string) {
   app.launch(`${EXAMPLE_SOURCE_BASE_URL}/${sourcePath}`)
-    .catch(() => new AlertDialog({
-      message: resolve(Texts).cannotOpenExampleSourceError(sourcePath),
-      buttons: { ok: resolve(Texts).ok }
-    }).open());
+    .catch(() => AlertDialog.open(resolve(Texts).cannotOpenExampleSourceError(sourcePath)));
 }

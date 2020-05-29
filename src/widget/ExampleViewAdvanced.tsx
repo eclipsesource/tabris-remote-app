@@ -1,5 +1,5 @@
 import { Composite, ImageView, Properties, TextView } from 'tabris';
-import { ComponentJSX, component, getById, inject } from 'tabris-decorators';
+import { component, getById, inject } from 'tabris-decorators';
 import { ExampleGalleryEntry, Example } from '../model/ExampleGallery';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
@@ -13,7 +13,6 @@ import dimen from '../res/dimen';
 
 @component export default class ExampleViewAdvanced extends ExampleView {
 
-  public jsxProperties: ComponentJSX<this>;
   @getById private name: TextView;
   @getById private image: ImageView;
   @getById private description: TextView;
@@ -33,7 +32,7 @@ import dimen from '../res/dimen';
       padding: { bottom: dimen.xs },
       ...properties
     });
-    this.on({ tap: () => launchExample(this.example.runPath) });
+    this.onTap(() => launchExample(this.example.runPath));
     this.createUi();
   }
 
@@ -47,37 +46,37 @@ import dimen from '../res/dimen';
 
   private createUi() {
     this.append(
-      <widgetCollection>
+      <$>
         <ActionIcon
           id='docsLink'
           right={dimen.xxs} top={dimen.xxs}
           image={this.images.docsLink}
-          highlightOnTouch={false} />,
-        <textView
+          highlightOnTouch={false} />
+        <TextView
           id='name'
           left={dimen.m} top={dimen.m} right={dimen.pxxs}
           font={this.fonts.h5}
           maxLines={1}
-          textColor={this.colors.onSurface} />,
-        <textView
+          textColor={this.colors.onSurface} />
+        <TextView
           id='description'
           left={dimen.m} top={dimen.pxxs} right={dimen.m}
           maxLines={3}
           textColor={this.colors.onSurfaceMedium}
           lineSpacing={1.1}
-          font={this.fonts.body1} />,
-        <imageView
+          font={this.fonts.body1} />
+        <ImageView
           id='image'
-          top={dimen.ps} centerX={0} />,
+          top={dimen.ps} centerX />
         <Divider
           id='divider'
-          left={0} top={dimen.ps} right={0}
+          stretchX top={dimen.ps}
           background={this.colors.onSurfaceDivider} />
         <LinkView
           id='linkView'
-          left={0} top={dimen.pxs} right={0}
+          stretchX top={dimen.pxs}
           onTap={() => showExampleSource(this.example.sourcePath)} />
-      </widgetCollection>
+      </$>
     );
   }
 

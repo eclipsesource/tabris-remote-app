@@ -1,5 +1,5 @@
-import { Composite, TabFolder, WidgetCollection, CompositeProperties } from 'tabris';
-import { Listeners, ComponentJSX, component, getById, inject } from 'tabris-decorators';
+import { Composite, Listeners, TabFolder, WidgetCollection, Properties } from 'tabris';
+import { component, getById, inject } from 'tabris-decorators';
 import { Colors } from '../res/Colors';
 import DevConsoleTab from './DevConsoleTab';
 import NavigationBar from './NavigationBar';
@@ -10,18 +10,17 @@ import dimen from '../res/dimen';
 
 @component export default class OnboardingView extends Composite {
 
-  public jsxProperties: ComponentJSX<this>;
   public onComplete: Listeners<{ target: OnboardingView }> = new Listeners(this, 'complete');
   @getById private tabFolder: TabFolder;
   @getById private navBar: NavigationBar;
   private tabs: WidgetCollection<OnboardingTab> = (
-    <widgetCollection>
-      <WelcomeTab selectionIndex={0} />
-      <DevConsoleTab selectionIndex={1} />
-    </widgetCollection>);
+    <$>
+      <WelcomeTab />
+      <DevConsoleTab />
+    </$>);
 
   constructor(
-    properties: Partial<CompositeProperties>,
+    properties: Partial<Properties<Composite>>,
     @inject protected readonly colors: Colors) {
     super({ background: colors.background, ...properties });
     this.createUi();
@@ -29,25 +28,25 @@ import dimen from '../res/dimen';
 
   private createUi() {
     this.append(
-      <widgetCollection>
-        <tabFolder
+      <$>
+        <TabFolder
           id='tabFolder'
-          left={0} top={0} right={0} bottom={dimen.n}
+          stretchX top bottom={dimen.n}
           tabBarLocation='hidden'
-          paging={true}
-          onSelectionChanged={({ value: selection }) => this.tabSelectionChanged(selection as OnboardingTab)}>
+          paging
+          onSelectionChanged={() => this.tabSelectionChanged()}>
           {this.tabs}
-        </tabFolder>
+        </TabFolder>
         <NavigationBar
           id='navBar'
-          left={0} right={0} bottom={0} height={dimen.xxl}
+          stretchX bottom height={dimen.xxl}
           entries={this.tabs.length}
           onSkipButton={() => this.skipOnboarding()}
           onNextButton={() => this.showNextTab()} />
         <Divider
-          left={0} right={0} bottom={0}
+          stretchX bottom
           background={this.colors.onBackgroundDivider} />
-      </widgetCollection>
+      </$>
     );
   }
 
@@ -56,16 +55,16 @@ import dimen from '../res/dimen';
   }
 
   private showNextTab() {
-    const selectionIndex = (this.tabFolder.selection as OnboardingTab).selectionIndex;
+    const selectionIndex = this.tabFolder.selectionIndex;
     if (selectionIndex < this.tabs.length - 1) {
-      this.tabFolder.selection = this.tabs.toArray()[selectionIndex + 1];
-      return;
+      this.tabFolder.selectionIndex = selectionIndex + 1;
+    } else {
+      this.onComplete.trigger();
     }
-    this.onComplete.trigger();
   }
 
-  private tabSelectionChanged(selection: OnboardingTab) {
-    this.navBar.activeEntry = selection.selectionIndex;
+  private tabSelectionChanged() {
+    this.navBar.activeEntry = this.tabFolder.selectionIndex;
   }
 
 }

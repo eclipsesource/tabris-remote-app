@@ -8,7 +8,7 @@ const FALLBACK_SCALE_FACTOR = 2;
 
   public getImage(name: string, platformSpecific: boolean = false) {
     let path = `images/${platformSpecific ? device.platform.toLowerCase() + '/' : ''}`;
-    return { src: path + name + '.png', scale: 3 };
+    return { src: path + name + '.png' };
   }
 
   public getImageScaled(name: string) {
