@@ -1,7 +1,7 @@
 import { Properties, TabFolder } from 'tabris';
-import {inject} from 'tabris-decorators';
-import {Colors} from '../res/Colors';
-import ScrollReceiver from './ScrollReceiver';
+import { inject } from 'tabris-decorators';
+import { Colors } from '../res/Colors';
+import ScrollReceiver from '../widget/ScrollReceiver';
 import AppTab from './AppTab';
 import settings from '../settings';
 
@@ -18,13 +18,13 @@ export default class AppTabFolder extends TabFolder<AppTab> {
       selectedTabTintColor: colors.primary,
       ...properties
     });
-    this.onSelectionChanged(({value: tab}) => {
+    this.onSelectionChanged(({ value: tab }) => {
       settings.selectedTabId = tab.id;
       this.updateScrollReceiver(tab);
     });
   }
 
-  set scrollReceiver(scrollReceiver: ScrollReceiver) {
+  public set scrollReceiver(scrollReceiver: ScrollReceiver) {
     this._scrollReceiver = scrollReceiver;
     this.previousTab = this.selection;
     this.previousTab.scrollReceiver = scrollReceiver;

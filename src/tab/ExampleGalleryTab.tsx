@@ -8,7 +8,7 @@ import ExampleViewAdvanced from '../widget/ExampleViewAdvanced';
 import ExampleViewBasic from '../widget/ExampleViewBasic';
 import ExampleGallery from '../model/ExampleGallery';
 import ExampleView from '../widget/ExampleView';
-import AppTab from '../widget/AppTab';
+import AppTab from './AppTab';
 import Header from '../widget/Header';
 import dimen from '../res/dimen';
 
@@ -28,11 +28,7 @@ import dimen from '../res/dimen';
       background: colors.tabBackground,
       ...properties
     });
-  }
-
-  public onSelectWhileAppeared() {
-    super.onSelectWhileAppeared();
-    this.exampleList.reveal(0);
+    this.onReselect(() => this.exampleList.reveal(0));
   }
 
   protected createUi() {
@@ -40,6 +36,7 @@ import dimen from '../res/dimen';
       this.exampleList = <CollectionView
         id='exampleList'
         stretch
+        scrollbarVisible={false}
         cellHeight={isIos() ? 192 : 'auto'}
         cellType={index => index === 0 ? 'header' : 'example'}
         createCell={(type: string) => this.createCell(type)}

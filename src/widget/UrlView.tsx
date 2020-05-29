@@ -3,7 +3,7 @@ import {
   TextInput, Widget, app, CollectionView, TextView, Bounds, permission
 } from 'tabris';
 import { component, getById, inject, create } from 'tabris-decorators';
-import { contentTopOffset, isIos } from '../helper';
+import { contentTopOffset, isIos, statusBarOffset } from '../helper';
 import { Colors } from '../res/Colors';
 import { Images } from '../res/Images';
 import { Fonts } from '../res/Fonts';
@@ -77,8 +77,10 @@ declare var esbarcodescanner: any;
           background={this.colors.surface}
           visible={false}>
           <Composite
-            left top={dimen.urlBarTop}
-            right height={dimen.urlBarHeight}
+            left
+            top={statusBarOffset() + dimen.urlBarTop}
+            right
+            height={dimen.urlBarHeight}
             background={this.colors.surface}>
             <ActionIcon
               id='detailsCloseIcon'
@@ -104,7 +106,10 @@ declare var esbarcodescanner: any;
         </Composite>
         <Composite
           id='urlBar'
-          left={dimen.m} top={dimen.urlBarTop} right={dimen.m} height={dimen.urlBarHeight}
+          left={dimen.m}
+          top={statusBarOffset() + dimen.urlBarTop}
+          right={dimen.m}
+          height={dimen.urlBarHeight}
           background={this.colors.surface}
           cornerRadius={dimen.urlBarCornerRadius}
           elevation={8}>

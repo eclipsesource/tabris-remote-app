@@ -7,7 +7,7 @@ import { Texts } from '../res/Texts';
 import CordovaPlugin from '../model/CordovaPlugin';
 import SubHeader from '../widget/SubHeader';
 import Divider from '../widget/Divider';
-import AppTab from '../widget/AppTab';
+import AppTab from './AppTab';
 import Header from '../widget/Header';
 import dimen from '../res/dimen';
 // @ts-ignore
@@ -36,11 +36,7 @@ declare let cordova: any;
       image: images.aboutTabImage,
       ...properties
     });
-  }
-
-  public onSelectWhileAppeared() {
-    super.onSelectWhileAppeared();
-    this.scrollView.scrollToY(0, { animate: true });
+    this.onReselect(() => this.scrollView.scrollToY(0, {animate: true}));
   }
 
   protected createUi() {
