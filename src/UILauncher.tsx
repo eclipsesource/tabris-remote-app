@@ -23,19 +23,17 @@ export default class UILauncher {
 
   private initUi() {
     const background = resolve(Colors).background;
-    navigationBar.set({
-      background: background,
-      theme: 'light'
-    });
+    // Workaround: 'navigationBar.set({})' causes tsl error "Argument of type...is not assignable...".
+    navigationBar.background = background;
+    navigationBar.theme = 'light';
     contentView.background = background;
   }
 
   private showOnboarding() {
-    statusBar.set({
-      theme: 'light',
-      displayMode: 'float',
-      background: resolve(Colors).background
-    });
+    // Workaround: 'statusBar.set({})' causes tsl error "Argument of type...is not assignable...".
+    statusBar.theme = 'light';
+    statusBar.displayMode = 'float';
+    statusBar.background = resolve(Colors).background;
     this.createOnboardingUi();
   }
 
@@ -52,11 +50,10 @@ export default class UILauncher {
   }
 
   private showApp() {
-    statusBar.set({
-      background: isIos() ? '#00a4ff' : 'rgba(0,0,0,0.22)',
-      theme: 'dark',
-      displayMode: isIos() ? 'default' : 'float'
-    });
+    // Workaround: 'statusBar.set({})' causes tsl error "Argument of type...is not assignable...".
+    statusBar.background = isIos() ? '#00a4ff' : 'rgba(0,0,0,0.22)';
+    statusBar.theme = 'dark';
+    statusBar.displayMode = isIos() ? 'default' : 'float';
     this.createAppUi();
     const tabFolder = $(AppTabFolder).only();
     tabFolder.scrollReceiver = $(UrlView).only();
