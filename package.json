@@ -13,9 +13,9 @@
     "serve": "tabris serve dist/index.js"
   },
   "dependencies": {
-    "tabris-js-remote": "^3.12.0",
-    "tabris": "~3.7.2",
-    "tabris-decorators": "~3.7.2"
+    "tabris-js-remote": "^3.17.0",
+    "tabris": "~3.8.0",
+    "tabris-decorators": "~3.8.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.44",
