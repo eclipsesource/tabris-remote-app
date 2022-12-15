@@ -54,7 +54,7 @@ jobs:
         
       - name: Install application dependencies
         env:
-          NPM_TOKEN: ${{ secrets.ECLIPSESOURCE_NPM_REGISTRY_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm install
 
       - name: Build application
