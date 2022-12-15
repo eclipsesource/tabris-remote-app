@@ -1,11 +1,23 @@
 {
-    "windows": {
-      "release": {
-        "packageCertificateKeyFile": "WindowsKey.pfx",
-        "buildFlag": [
-          "/p:AppxPackageIsForStore=true",
-          "/p:UapAppxPackageBuildMode=StoreUpload"
-        ]
-      }
+  "windows": {
+    "release": {
+      "packageCertificateKeyFile": "WindowsKey.pfx",
+      "buildFlag": [
+        "/p:AppxPackageIsForStore=true",
+        "/p:UapAppxPackageBuildMode=StoreUpload"
+      ]
+    }
+  },
+  "ios": {
+    "debug": {
+      "codeSignIdentity": "Apple Development",
+      "packageType": "development",
+      "provisioningProfile": "6a15c064-0756-4ddd-9400-e4d8a70ec0d0"
+    },
+    "release": {
+      "codeSignIdentity": "Apple Distribution",
+      "packageType": "app-store",
+      "provisioningProfile": "9f4bacbd-2433-4020-87d4-784f4fbfd690"
     }
   }
+}
