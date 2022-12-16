@@ -55,7 +55,9 @@ jobs:
       - name: Install application dependencies
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm install
+        run: |
+          npm run --if-present prepare
+          npm install
 
       - name: Build application
         env:
