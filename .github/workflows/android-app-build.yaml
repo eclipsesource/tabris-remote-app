@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-java@v3.6.0
         with:
           distribution: adopt
-          java-version: 11
+          java-version: 8
 
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2.3.3
