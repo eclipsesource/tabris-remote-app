@@ -1,4 +1,4 @@
-name: Build Tabris.js app for Android
+name: Build Android app
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 jobs:
   build_android_app:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout source
@@ -28,8 +28,8 @@ jobs:
           distribution: adopt
           java-version: 8
 
-      - name: Uninstall build-tools 33.0.1
-        run: sudo ${ANDROID_HOME}/tools/bin/sdkmanager --uninstall "build-tools;33.0.1"
+      - name: Uninstall build-tools 33.0.0
+        run: sudo ${ANDROID_HOME}/tools/bin/sdkmanager --uninstall "build-tools;33.0.0"
 
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2.3.3
