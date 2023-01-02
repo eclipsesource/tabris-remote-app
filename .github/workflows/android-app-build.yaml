@@ -31,6 +31,9 @@ jobs:
       - name: Uninstall build-tools 31.0.0
         run: sudo ${ANDROID_HOME}/tools/bin/sdkmanager --uninstall "build-tools;31.0.0"
 
+      - name: Uninstall build-tools 33.0.1
+        run: sudo ${ANDROID_HOME}/tools/bin/sdkmanager --uninstall "build-tools;33.0.1"
+
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2.3.3
 
