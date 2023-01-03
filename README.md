@@ -41,4 +41,3 @@ registry=https://npm.tabrisjs.com/
 
 7. Build the app for the platform of your choice.
 8. Download and install the app and connect to your Tabris/RAP server.
-
