@@ -5,9 +5,9 @@ on:
 
 jobs:
   build_android_app:
-
     runs-on: ubuntu-latest
-
+    name: Build Android application
+    environment: 'Android app signing'
     steps:
       - name: Checkout source
         uses: actions/checkout@v3.1.0
