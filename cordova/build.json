@@ -12,12 +12,12 @@
     "debug": {
       "codeSignIdentity": "Apple Development",
       "packageType": "development",
-      "provisioningProfile": "6a15c064-0756-4ddd-9400-e4d8a70ec0d0"
+      "provisioningProfile": "3593fb83-302b-4f2e-aee0-51733d2a48d7"
     },
     "release": {
       "codeSignIdentity": "Apple Distribution",
       "packageType": "app-store",
-      "provisioningProfile": "9f4bacbd-2433-4020-87d4-784f4fbfd690"
+      "provisioningProfile": "64bebb3d-7a28-4096-8d88-2520d7e51ac2"
     }
   }
 }
