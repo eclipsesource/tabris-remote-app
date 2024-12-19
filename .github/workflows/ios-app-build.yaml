@@ -70,10 +70,7 @@ jobs:
         run: |
           mkdir -p artifacts
           printenv | grep GITHUB_ > artifacts/env-gha
-          cp -R \
-            "$(find . -iname "*.app.dSYM")" \
-            "$(find . -iname "*.ipa")" \
-            artifacts
+          find . \( -iname "*.app.dSYM" -o -iname "*.ipa" \) -exec cp -R {} artifacts/ \;
           tar cf artifacts.tar artifacts
 
       - name: Archive metadata
