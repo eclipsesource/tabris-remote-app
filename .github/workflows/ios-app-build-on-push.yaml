@@ -1,0 +1,23 @@
+name: Trigger iOS build
+
+on:
+  push:
+
+jobs:
+  trigger:
+    name: Trigger new iOS build
+    environment: 'es-fastlane-match'
+    runs-on: ubuntu-latest
+    steps:
+        - name: Trigger new build
+          run: |
+            curl -v \
+              https://api.github.com/repos/eclipsesource/tabris-remote-app/actions/workflows/ios-app-build.yaml/dispatches \
+              -H 'Accept: application/vnd.github.v3+json' \
+              -H 'Content-Type: application/json' \
+              -H "Authorization: token ${{ secrets.ES_GITHUB_TOKEN }}" \
+              -H 'cache-control: no-cache' \
+              -d "{
+                \"ref\": \"${{ github.ref }}\",
+                \"inputs\": { \"build_type\": \"release\" }
+            }"
