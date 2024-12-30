@@ -64,3 +64,14 @@ jobs:
           name: artifacts.tar
           path: artifacts.tar
           retention-days: 30
+
+      - name: AppStore Upload
+        if: ${{ github.event.inputs.build_type == 'release' }}
+        env:
+          FASTLANE_USER: ${{ vars.TABRIS_IOS_FASTLANE_USER }}
+          FASTLANE_APP_SPECIFIC_PASSWORD: ${{ secrets.TABRIS_IOS_FASTLANE_APP_SPECIFIC_PASSWORD }}
+        run: |
+          xcrun altool --upload-app --type ios \
+            --file "$(find ./artifacts/ -iname "*.ipa")" \
+            --username $FASTLANE_USER \
+            --password '@env:FASTLANE_APP_SPECIFIC_PASSWORD'
